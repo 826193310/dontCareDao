@@ -17,6 +17,8 @@ public class GeneratorCodeInfo {
     private String mapperPath; // Mapper 生成路径
     private String servicePath; // service 生成路径
     private String controllerPath; // controller 生成路径
+    private String dtoPath; // dto 输出路径
+    private String projectPath; // 项目路径
 
     public String getOutputPath() {
         return outputPath;
@@ -88,5 +90,13 @@ public class GeneratorCodeInfo {
 
     public void setControllerPath(String controllerPath) {
         this.controllerPath = controllerPath;
+    }
+
+    public String getDtoPath() {
+        return dtoPath;
+    }
+
+    public void setDtoPath(String dtoPath) {
+        this.dtoPath = dtoPath;
     }
 }

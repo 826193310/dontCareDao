@@ -14,6 +14,8 @@ public class FieldInfo {
     private String type; // 字段类型
     private boolean isNull; // 是否允许为空
     private boolean primaryKey; // 是否为ID
+    private String commons; // 字段备注
+    private String javaType; // java 字段类型
 
     public String getName() {
         return name;
@@ -45,5 +47,21 @@ public class FieldInfo {
 
     public void setPrimaryKey(boolean primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public String getCommons() {
+        return commons;
+    }
+
+    public void setCommons(String commons) {
+        this.commons = commons;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
     }
 }

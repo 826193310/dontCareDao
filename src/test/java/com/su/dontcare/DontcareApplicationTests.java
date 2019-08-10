@@ -34,7 +34,8 @@ public class DontcareApplicationTests {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();
 		tableInfo.setTableName("tbluser");
-		codeInfo.setMapperPath("com/su/dontcare/dao");
+		codeInfo.setMapperPath("com.su.dontcare.dao");
+		codeInfo.setDtoPath("com.su.dontcare.dto");
 		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
 		codeInfo.setTableInfo(tableInfo);
 		generatorService.generatorBySingleTable(codeInfo);

@@ -23,4 +23,7 @@ public class StringUtil {
         return String.valueOf(cs);
     }
 
+    public static String pageFormatToFilePath(String packageName) {
+        return packageName.replace(".", "/");
+    }
 }

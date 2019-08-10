@@ -1,6 +1,7 @@
 package ${info.packName};
 
 
-public class ${info.className} {
+public interface ${info.className} {
+
 
 }

@@ -13,6 +13,7 @@ import java.util.List;
 **/
 public class TableInfo {
     private String tableName; // 表明
+    private String dataBaseName; // 数据库名称
     List<FieldInfo> fields; // 字段信息
 
     public String getTableName() {
@@ -29,5 +30,13 @@ public class TableInfo {
 
     public void setFields(List<FieldInfo> fields) {
         this.fields = fields;
+    }
+
+    public String getDataBaseName() {
+        return dataBaseName;
+    }
+
+    public void setDataBaseName(String dataBaseName) {
+        this.dataBaseName = dataBaseName;
     }
 }

@@ -1,9 +1,11 @@
 package com.su.dontcare.service;
 
+import com.su.dontcare.Enum.DataBaseTypeEnum;
 import com.su.dontcare.service.entity.FieldInfo;
 import com.su.dontcare.service.entity.GeneratorCodeInfo;
 import com.su.dontcare.service.entity.TableInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
@@ -32,6 +34,9 @@ public class GeneratorService {
 
     @Autowired
     private GenerCodeService codeService;
+
+    @Value("${spring.datasource.driver-class-name}")
+    private static String driverClass;
     /**
     *
     *@Description: 生成单表文件
@@ -60,55 +65,89 @@ public class GeneratorService {
      **/
     public TableInfo getTabelInfo(String tableName) {
 
-        String sql = "select * from " + tableName + " limit 0";
         Connection con = null;
         java.sql.Statement stmt = null;
-        java.sql.ResultSet resultSet = null;
+        java.sql.ResultSet rs = null;
         ResultSetMetaData metaData;
         java.sql.DatabaseMetaData dma;
         try {
             con = dataSource.getConnection();
             stmt = con.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            metaData = resultSet.getMetaData();
+
             DatabaseMetaData dbmd= con.getMetaData();
             ResultSet pks = dbmd.getPrimaryKeys(null, null, tableName);
+            rs = dbmd.getColumns(null, "%", tableName, "%");
+
             ResultSetMetaData pkmd = pks.getMetaData();
             String primaryKey = null;
             while(pks.next()){
+                //pks.
                 primaryKey = pks.getString("COLUMN_NAME");
             }
             TableInfo info = new TableInfo();
-            int columnCount = metaData.getColumnCount();
             List<FieldInfo> fields = new ArrayList<>();
-            info.setTableName(metaData.getTableName(1));
-            for (int i = 1; i <= columnCount; i++) {
-                FieldInfo fieldInfo = new FieldInfo();
-                String columnName = metaData.getColumnName(i);
-                if (primaryKey != null && primaryKey.equals(columnName)) {
-                    fieldInfo.setName(metaData.getColumnName(i));
-                    fieldInfo.setType(metaData.getColumnTypeName(i));
-                    fieldInfo.setPrimaryKey(true);
-                    fields.add(fieldInfo);
-                    continue;
-                }
 
-                fieldInfo.setName(metaData.getColumnName(i));
-                fieldInfo.setType(metaData.getColumnTypeName(i));
+            while(rs.next()){
+                FieldInfo fieldInfo = new FieldInfo();
+                //列名
+                String columnName = rs.getString("COLUMN_NAME");
+                String typeName = rs.getString("TYPE_NAME");
+                String remarks = rs.getString("REMARKS");
+                fieldInfo.setName(columnName);
+                fieldInfo.setType(typeName);
+                fieldInfo.setCommons(remarks);
+                if (primaryKey != null && primaryKey.equals(columnName)) {
+                    fieldInfo.setPrimaryKey(true);
+                }
                 fields.add(fieldInfo);
             }
+
+            info.setTableName(getTableName(tableName));
             info.setFields(fields);
             return info;
         } catch(Exception ex) {
+
           ex.printStackTrace();
+          System.exit(0);
         } finally {
             try {
                 con.close();
-                resultSet.close();
+                rs.close();
+                stmt.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
         return null;
+    }
+
+    public String getTableName(String tableName) {
+        Connection con = null;
+        java.sql.Statement stmt = null;
+        java.sql.ResultSet rs = null;
+        ResultSetMetaData metaData;
+        java.sql.DatabaseMetaData dma;
+        try {
+            con = dataSource.getConnection();
+            stmt = con.createStatement();
+            String sql = setSelectSqlByDataBaseType(tableName);
+            ResultSet resultSet = stmt.executeQuery(sql);
+            return resultSet.getMetaData().getTableName(1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try{
+                con.close();
+                rs.close();
+                stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private String setSelectSqlByDataBaseType(String table) {
+        return DataBaseTypeEnum.findSql(driverClass).replace("TABLE", table);
     }
 }
