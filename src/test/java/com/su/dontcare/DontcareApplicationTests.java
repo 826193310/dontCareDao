@@ -1,6 +1,8 @@
 package com.su.dontcare;
 
 import com.su.dontcare.service.GeneratorService;
+import com.su.dontcare.service.entity.GeneratorCodeInfo;
+import com.su.dontcare.service.entity.TableInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,13 @@ public class DontcareApplicationTests {
 
 	@Test
 	public void testJDBC() {
-		generatorService.generatorBySingleTable("tbluser");
+		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
+		TableInfo tableInfo = new TableInfo();
+		tableInfo.setTableName("tbluser");
+		codeInfo.setMapperPath("com/su/dontcare/dao");
+		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
+		codeInfo.setTableInfo(tableInfo);
+		generatorService.generatorBySingleTable(codeInfo);
 	}
 
 }

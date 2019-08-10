@@ -1,6 +1,7 @@
 package com.su.dontcare.service;
 
 import com.su.dontcare.service.entity.FieldInfo;
+import com.su.dontcare.service.entity.GeneratorCodeInfo;
 import com.su.dontcare.service.entity.TableInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,6 +30,8 @@ public class GeneratorService {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private GenerCodeService codeService;
     /**
     *
     *@Description: 生成单表文件
@@ -38,14 +41,11 @@ public class GeneratorService {
     *@return:
      *
     **/
-    public void generatorBySingleTable(String tableName){
+    public void generatorBySingleTable(GeneratorCodeInfo codeInfo){
         // 获取表的信息
-        TableInfo tableInfo = getTabelInfo(tableName);
-        System.out.println("表名：" + tableInfo.getTableName());
-        tableInfo.getFields().forEach(item ->{
-            System.out.println("name:" + item.getName() + ", type:" + item.getType() +
-                    "isId:" + item.isId());
-        });
+        TableInfo tableInfo = getTabelInfo(codeInfo.getTableInfo().getTableName());
+        codeInfo.setTableInfo(tableInfo);
+        codeService.generCode(codeInfo);
     }
 
 
@@ -88,7 +88,7 @@ public class GeneratorService {
                 if (primaryKey != null && primaryKey.equals(columnName)) {
                     fieldInfo.setName(metaData.getColumnName(i));
                     fieldInfo.setType(metaData.getColumnTypeName(i));
-                    fieldInfo.setId(true);
+                    fieldInfo.setPrimaryKey(true);
                     fields.add(fieldInfo);
                     continue;
                 }

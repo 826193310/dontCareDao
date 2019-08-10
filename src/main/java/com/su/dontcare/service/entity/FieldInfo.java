@@ -13,7 +13,7 @@ public class FieldInfo {
     private String name; // 字段名称
     private String type; // 字段类型
     private boolean isNull; // 是否允许为空
-    private boolean isId; // 是否为ID
+    private boolean primaryKey; // 是否为ID
 
     public String getName() {
         return name;
@@ -39,11 +39,11 @@ public class FieldInfo {
         isNull = aNull;
     }
 
-    public boolean isId() {
-        return isId;
+    public boolean getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setId(boolean id) {
-        isId = id;
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
     }
 }
