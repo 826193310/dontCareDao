@@ -59,7 +59,7 @@ public class GenerCodeService {
     public void generCode(GeneratorCodeInfo codeInfo) {
         // 先生成Mapper 文件
         //generMapper(codeInfo);
-        //generMapperInterFace(codeInfo);
+        generMapperInterFace(codeInfo);
         generDtoVo(codeInfo);
 
     }
@@ -96,7 +96,13 @@ public class GenerCodeService {
         String mapperName = StringUtil.firstCharUpper(tableName) + "Mapper";
         codeVo.setPackName(codeInfo.getMapperPath());
         codeVo.setClassName(mapperName);
+        FieldUtil.convertTypeToJavaByFieldList(codeVo.getTableInfo());
+
         dataMap.put("info", codeVo);
+        dataMap.put("primaryKeyType", generatorCodeUtil.getPrimaryType(codeVo.getTableInfo().getFields()));
+        dataMap.put("dtoName", StringUtil.firstCharUpper(tableName));
+        dataMap.put("importClasses", generatorCodeUtil.getMapperImportClass(codeVo));
+
         // 生成的 mapper interface 文件名
         String mapperJavaName = mapperName + ".java";
         // 输出 mapper interface 文件路径
