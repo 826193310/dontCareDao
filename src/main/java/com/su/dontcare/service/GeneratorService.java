@@ -1,27 +1,23 @@
 package com.su.dontcare.service;
 
 import com.su.dontcare.Enum.DataBaseTypeEnum;
+import com.su.dontcare.constant.YmlPropertiesConst;
 import com.su.dontcare.service.entity.FieldInfo;
 import com.su.dontcare.service.entity.GeneratorCodeInfo;
 import com.su.dontcare.service.entity.TableInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class GeneratorService {
@@ -35,8 +31,8 @@ public class GeneratorService {
     @Autowired
     private GenerCodeService codeService;
 
-    @Value("${spring.datasource.driver-class-name}")
-    private static String driverClass;
+    @Autowired
+    YmlPropertiesConst ymlPropertiesConst;
     /**
     *
     *@Description: 生成单表文件
@@ -103,10 +99,10 @@ public class GeneratorService {
             }
 
             info.setTableName(getTableName(tableName));
+            info.setDriverClass(ymlPropertiesConst.driverClass);
             info.setFields(fields);
             return info;
         } catch(Exception ex) {
-
           ex.printStackTrace();
           System.exit(0);
         } finally {
@@ -148,6 +144,6 @@ public class GeneratorService {
     }
 
     private String setSelectSqlByDataBaseType(String table) {
-        return DataBaseTypeEnum.findSql(driverClass).replace("TABLE", table);
+        return DataBaseTypeEnum.findSql(ymlPropertiesConst.driverClass).replace("TABLE", table);
     }
 }

@@ -7,11 +7,14 @@ package com.su.dontcare.Enum;
 *@Date: 2019/8/10
 **/
 public enum MysqlFieldToJavaEnum {
-    String_VARCHAR("getByPrimaryKey", "根据主键获取数据"),
-    FIND_LIST("findList", "列表查询"),
-    INSERT("insertAll", "插入"),
-    INSERT_DYNAMIC("insertDynamic", "动态插入，只插入存在值的数据");
-
+    VARCHAR("VARCHAR", "String"),
+    CHAR("CHAR", "String"),
+    BINARY("BINARY", "byte[]"),
+    FLOAT("FLOAT", "Float"),
+    DATE("DATE", "Date"),
+    INTEGER("INTEGER", "Integer"),
+    BIT("BIT", "Integer"),
+    INT("INT", "Integer");
     private String mysqlType;
     private String javaType;
     MysqlFieldToJavaEnum(String mysqlType, String javaType) {
@@ -19,6 +22,12 @@ public enum MysqlFieldToJavaEnum {
         this.javaType = javaType;
     }
 
+    public static String toJavaType(String mysqlType) throws Exception {
+        for (MysqlFieldToJavaEnum value : values()) {
+            if (mysqlType.equalsIgnoreCase(value.getMysqlType())) return value.javaType;
+        }
+        throw new Exception("not found your mysqlType [" + mysqlType + "] in MysqlFieldToJavaEnum");
+    }
     public String getMysqlType() {
         return mysqlType;
     }

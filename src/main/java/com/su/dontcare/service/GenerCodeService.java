@@ -1,10 +1,10 @@
 package com.su.dontcare.service;
 
+import com.su.dontcare.Util.FieldUtil;
 import com.su.dontcare.Util.StringUtil;
 import com.su.dontcare.service.entity.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -52,7 +52,7 @@ public class GenerCodeService {
         // 先生成Mapper 文件
         //generMapper(codeInfo);
         //generMapperInterFace(codeInfo);
-        //generDtoVo(codeInfo);
+        generDtoVo(codeInfo);
 
     }
 
@@ -115,6 +115,7 @@ public class GenerCodeService {
         String classFileName = className + ".java";
         dtoVo.setPackName(codeInfo.getDtoPath());
         dtoVo.setClassName(className);
+        FieldUtil.convertTypeToJavaByFieldList(codeInfo.getTableInfo());
         dataMap.put("info", dtoVo);
         String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getDtoPath()) + "/" + classFileName;
         outPutTemplateContent(outputPath, "dtoVo.ftl",dataMap);
