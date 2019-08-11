@@ -10,7 +10,8 @@ public enum TypeClassEnum {
     STRING("String","java.lang.String"),
     INTEGER("Integer","java.lang.Integer"),
     DATE("Date", "java.sql.Date"),
-    LONG("Long", "java.lang.Long");
+    LONG("Long", "java.lang.Long"),
+    BIT("BIT", "java.lang.Integer");
     private String typeName;
     private String typeImportClass;
     TypeClassEnum(String typeName, String typeImportClass) {

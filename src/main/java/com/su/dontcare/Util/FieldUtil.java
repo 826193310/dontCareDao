@@ -64,4 +64,12 @@ public class FieldUtil {
         }
         return dtogsterInfoList;
     }
+
+    public List<FieldInfo> getFieldsExCludPrimary(List<FieldInfo> fieldInfos) {
+        List<FieldInfo> list = new ArrayList<>();
+        for (FieldInfo fieldInfo : fieldInfos) {
+            if (!fieldInfo.getPrimaryKey()) list.add(fieldInfo);
+        }
+        return list;
+    }
 }

@@ -1,6 +1,6 @@
 package ${info.packName};
 
-<#list importClasses as importClass>
+<#list info.dtoImportClass as importClass>
     import ${importClass};
 </#list>
 

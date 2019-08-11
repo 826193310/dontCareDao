@@ -1,36 +1,36 @@
 package ${info.packName};
 
-<#list importClasses as importClass>
+<#list info.mapperImportClass as importClass>
 import ${importClass};
 </#list>
 
 public interface ${info.className} {
 
-    int insert(${dtoName} ${info.tableInfo.tableName});
+    int insert(${info.dtoName} ${info.tableInfo.tableName});
 
     /**
     *
     * 动态插入处理
     *
     **/
-    int insertDynamic(${dtoName} ${info.tableInfo.tableName});
+    int insertDynamic(${info.dtoName} ${info.tableInfo.tableName});
 
-    <#if primaryKeyType?exists>
+    <#if info.primaryKeyType?exists>
     /**
     *
     * 根据主键 ID 删除数据
     *
     **/
-    int deleteByPrimary(${primaryKeyType} id);
+    int deleteByPrimary(${info.primaryKeyType} id);
 
     </#if>
-    <#if primaryKeyType?exists>
+    <#if info.primaryKeyType?exists>
     /**
     *
     * 根据主键 ID 获取数据
     *
     **/
-    ${dtoName} selectByPrimary(${primaryKeyType} id);
+    ${info.dtoName} selectByPrimary(${info.primaryKeyType} id);
 
     </#if>
     /**
@@ -38,22 +38,22 @@ public interface ${info.className} {
     * 根据 dto 获取列表数据
     *
     **/
-    List<${dtoName}> selectListByDto(${dtoName} ${info.tableInfo.tableName});
+    List<${info.dtoName}> selectListByDto(${info.dtoName} ${info.tableInfo.tableName});
 
     /**
     *
     * 根据 dto 获取单条记录
     *
     **/
-    ${dtoName} selectOneByDto(${dtoName} ${info.tableInfo.tableName});
+    ${info.dtoName} selectOneByDto(${info.dtoName} ${info.tableInfo.tableName});
 
-    <#if primaryKeyType?exists>
+    <#if info.primaryKeyType?exists>
     /**
     *
     * 根据主键 ID 更新数据
     *
     **/
-    int updateByPrimary(${dtoName} ${info.tableInfo.tableName});
+    int updateByPrimary(${info.dtoName} ${info.tableInfo.tableName});
 
     </#if>
 }

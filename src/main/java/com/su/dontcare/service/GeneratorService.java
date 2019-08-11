@@ -1,6 +1,9 @@
 package com.su.dontcare.service;
 
 import com.su.dontcare.Enum.DataBaseTypeEnum;
+import com.su.dontcare.Util.FieldUtil;
+import com.su.dontcare.Util.GeneratorCodeUtil;
+import com.su.dontcare.Util.StringUtil;
 import com.su.dontcare.constant.YmlPropertiesConst;
 import com.su.dontcare.service.entity.FieldInfo;
 import com.su.dontcare.service.entity.GeneratorCodeInfo;
@@ -30,6 +33,9 @@ public class GeneratorService {
 
     @Autowired
     YmlPropertiesConst ymlPropertiesConst;
+
+    @Autowired
+    private GeneratorCodeUtil generatorCodeUtil;
     /**
     *
     *@Description: 生成单表文件
@@ -43,10 +49,27 @@ public class GeneratorService {
         // 获取表的信息
         TableInfo tableInfo = getTabelInfo(codeInfo.getTableInfo().getTableName());
         codeInfo.setTableInfo(tableInfo);
+        setAttribute(codeInfo);
         codeService.generCode(codeInfo);
     }
 
-
+    /**
+     *
+     *@Description: 设置相关字段和属性
+     *@Param: [codeInfo]
+     *@Author: guanzhou.su
+     *@Date: 2019/8/11
+     *@return: void
+     *
+     **/
+    public void setAttribute(GeneratorCodeInfo codeInfo) {
+        FieldUtil.convertTypeToJavaByFieldList(codeInfo.getTableInfo());
+        codeInfo.setDtoImportClass(generatorCodeUtil.getImportClass(codeInfo.getTableInfo().getFields()));
+        TableInfo tableInfo = codeInfo.getTableInfo();
+        codeInfo.setPrimaryKeyType(generatorCodeUtil.getPrimaryType(tableInfo.getFields()));
+        codeInfo.setDtoName(StringUtil.firstCharUpper(tableInfo.getTableName()));
+        codeInfo.setMapperImportClass(generatorCodeUtil.getMapperImportClass(codeInfo));
+    }
     /**
      *
      *@Description: 根据表名称获取表字段信息
@@ -78,6 +101,7 @@ public class GeneratorService {
                 primaryKey = pks.getString("COLUMN_NAME");
             }
             TableInfo info = new TableInfo();
+            info.setPrimaryKey(primaryKey);
             List<FieldInfo> fields = new ArrayList<>();
 
             while(rs.next()){
@@ -103,13 +127,7 @@ public class GeneratorService {
           ex.printStackTrace();
           System.exit(0);
         } finally {
-            try {
-                con.close();
-                rs.close();
-                stmt.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            closeResource(rs, con, stmt);
         }
         return null;
     }

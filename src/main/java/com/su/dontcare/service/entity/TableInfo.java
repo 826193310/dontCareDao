@@ -16,6 +16,7 @@ public class TableInfo {
     private String dataBaseName; // 数据库名称
     List<FieldInfo> fields; // 字段信息
     private String driverClass; // 数据库驱动类，用以标识数据库类型转JAVA时不同数据之前的处理
+    private String primaryKey; //主键ID
 
     public String getTableName() {
         return tableName;
@@ -47,5 +48,13 @@ public class TableInfo {
 
     public void setDriverClass(String driverClass) {
         this.driverClass = driverClass;
+    }
+
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
     }
 }

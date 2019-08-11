@@ -1,5 +1,7 @@
 package com.su.dontcare.service.entity;
 
+import java.util.List;
+
 /**
 *
 *@Description: 生成代码信息配置类
@@ -19,6 +21,10 @@ public class GeneratorCodeInfo {
     private String controllerPath; // controller 生成路径
     private String dtoPath; // dto 输出路径
     private String projectPath; // 项目路径
+    private String primaryKeyType; // 主键类型
+    private String dtoName; // dto 对象名称
+    private List<String> mapperImportClass; // mapper 需要引入的 class
+    private List<String> dtoImportClass; // dto 需要引入的 class
 
     public String getOutputPath() {
         return outputPath;
@@ -98,5 +104,45 @@ public class GeneratorCodeInfo {
 
     public void setDtoPath(String dtoPath) {
         this.dtoPath = dtoPath;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+
+    public void setProjectPath(String projectPath) {
+        this.projectPath = projectPath;
+    }
+
+    public String getPrimaryKeyType() {
+        return primaryKeyType;
+    }
+
+    public void setPrimaryKeyType(String primaryKeyType) {
+        this.primaryKeyType = primaryKeyType;
+    }
+
+    public String getDtoName() {
+        return dtoName;
+    }
+
+    public void setDtoName(String dtoName) {
+        this.dtoName = dtoName;
+    }
+
+    public List<String> getMapperImportClass() {
+        return mapperImportClass;
+    }
+
+    public void setMapperImportClass(List<String> mapperImportClass) {
+        this.mapperImportClass = mapperImportClass;
+    }
+
+    public List<String> getDtoImportClass() {
+        return dtoImportClass;
+    }
+
+    public void setDtoImportClass(List<String> dtoImportClass) {
+        this.dtoImportClass = dtoImportClass;
     }
 }
