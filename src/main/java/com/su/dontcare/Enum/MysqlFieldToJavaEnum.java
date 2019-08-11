@@ -14,7 +14,8 @@ public enum MysqlFieldToJavaEnum {
     DATE("DATE", "Date"),
     INTEGER("INTEGER", "Integer"),
     BIT("BIT", "Integer"),
-    INT("INT", "Integer");
+    INT("INT", "Integer"),
+    DATETIME("DATETIME", "Date");
     private String mysqlType;
     private String javaType;
     MysqlFieldToJavaEnum(String mysqlType, String javaType) {

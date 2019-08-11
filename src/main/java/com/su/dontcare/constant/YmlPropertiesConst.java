@@ -15,7 +15,4 @@ public class YmlPropertiesConst {
     @Value("${spring.datasource.driver-class-name}")
     public String driverClass;
 
-    @Value("${ddd}")
-    public String ddd;
-
 }

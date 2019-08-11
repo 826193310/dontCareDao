@@ -1,11 +1,13 @@
 package com.su.dontcare.service;
 
 import com.su.dontcare.Util.FieldUtil;
+import com.su.dontcare.Util.GeneratorCodeUtil;
 import com.su.dontcare.Util.StringUtil;
 import com.su.dontcare.service.entity.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,12 @@ public class GenerCodeService {
 
     private final static String MAPPER_TEMPLATE_PATH = "static/template";
     private static Configuration configuration = null;
+
+    @Autowired
+    private FieldUtil fieldUtil;
+
+    @Autowired
+    private GeneratorCodeUtil generatorCodeUtil;
 
     static {
         try {
@@ -117,6 +125,9 @@ public class GenerCodeService {
         dtoVo.setClassName(className);
         FieldUtil.convertTypeToJavaByFieldList(codeInfo.getTableInfo());
         dataMap.put("info", dtoVo);
+        dataMap.put("gsters", fieldUtil.generatorGsMethod(dtoVo.getTableInfo().getFields()));
+        dataMap.put("importClasses", generatorCodeUtil.getImportClass(dtoVo.getTableInfo().getFields()));
+
         String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getDtoPath()) + "/" + classFileName;
         outPutTemplateContent(outputPath, "dtoVo.ftl",dataMap);
     }

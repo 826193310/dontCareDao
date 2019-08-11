@@ -1,5 +1,8 @@
 package ${info.packName};
 
+<#list importClasses as importClass>
+    import ${importClass};
+</#list>
 
 public class ${info.className} {
 
@@ -8,4 +11,18 @@ public class ${info.className} {
     // ${field.commons}
     private ${field.javaType} ${field.name};
 </#list>
+
+<#list gsters as gster>
+
+    public  ${gster.javaType} ${gster.getterName}() {
+        return ${gster.name};
+    }
+
+    public void ${gster.setterName}(${gster.javaType} ${gster.name}) {
+        this.${gster.name} = ${gster.name};
+    }
+</#list>
+
+
+
 }

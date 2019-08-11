@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,18 +129,23 @@ public class GeneratorService {
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            try{
-                con.close();
-                rs.close();
-                stmt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResource(rs, con, stmt);
         }
         return null;
     }
 
     private String setSelectSqlByDataBaseType(String table) {
         return DataBaseTypeEnum.findSql(ymlPropertiesConst.driverClass).replace("TABLE", table);
+    }
+
+    public static void closeResource(ResultSet rs, Connection con, Statement stmt) {
+        try{
+            if (con != null) con.close();
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        } catch (Exception e) {
+            System.out.println("关闭资源异常");
+            e.printStackTrace();
+        }
     }
 }
