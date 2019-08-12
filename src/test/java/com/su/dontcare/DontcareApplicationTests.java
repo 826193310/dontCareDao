@@ -34,9 +34,14 @@ public class DontcareApplicationTests {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();
 		tableInfo.setTableName("tbluser");
-		codeInfo.setMapperPath("com.su.dontcare.dao");
+		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
+		codeInfo.setGeneratorService(true); // 是否生成service层
+		codeInfo.setServicePath("com.su.dontcare.service"); // serivce 接口生成包
 		codeInfo.setDtoPath("com.su.dontcare.dto");
+		codeInfo.setRespClass("com.su.entity.Resp"); // 通用返回类
+		codeInfo.setRespGeneric(true); // 返回类是否泛型， 作用于Service 层和 controller 层
 		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
+		codeInfo.setGenericFiled("data");
 		codeInfo.setTableInfo(tableInfo);
 		generatorService.generatorBySingleTable(codeInfo);
 	}

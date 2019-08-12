@@ -58,10 +58,10 @@ public class GenerCodeService {
      **/
     public void generCode(GeneratorCodeInfo codeInfo) {
         // 先生成Mapper 文件
-        generMapper(codeInfo);
-        generMapperInterFace(codeInfo);
-        generDtoVo(codeInfo);
-
+        //generMapper(codeInfo);
+        //generMapperInterFace(codeInfo);
+        //generDtoVo(codeInfo);
+        generService(codeInfo);
     }
 
     public void generMapper(GeneratorCodeInfo codeInfo) {
@@ -124,6 +124,7 @@ public class GenerCodeService {
         Map<String, Object> dataMap = new HashMap<>();
         String tableName = codeInfo.getTableInfo().getTableName();
         String className = StringUtil.firstCharUpper(tableName);
+
         String classFileName = className + ".java";
         dtoVo.setPackName(codeInfo.getDtoPath());
         dtoVo.setClassName(className);
@@ -132,6 +133,40 @@ public class GenerCodeService {
 
         String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getDtoPath()) + "/" + classFileName;
         outPutTemplateContent(outputPath, "dtoVo.ftl",dataMap);
+    }
+
+    /**
+     *
+     *@Description: 生成  service
+     *@Param: [codeInfo]
+     *@Author: guanzhou.su
+     *@Date: 2019/8/10
+     *@return: void
+     *
+     **/
+    private void generService(GeneratorCodeInfo codeInfo) {
+        if (!codeInfo.isGeneratorService()) return;
+
+        ServiceVo serviceVo = new ServiceVo();
+        BeanUtils.copyProperties(codeInfo, serviceVo);
+        Map<String, Object> dataMap = new HashMap<>();
+        String tableName = codeInfo.getTableInfo().getTableName();
+        String className = StringUtil.firstCharUpper(tableName) + "Service";
+        serviceVo.setMapperClass(StringUtil.firstCharUpper(tableName) + "Mapper");
+        serviceVo.setMapperName(tableName + "Mapper");
+        String classFileName = className + ".java";
+        String respClass = serviceVo.getRespClass();
+        serviceVo.setRespVo(respClass.substring(respClass.lastIndexOf(".") + 1, respClass.length()));
+        serviceVo.setPackName(codeInfo.getServicePath());
+        serviceVo.setClassName(className);
+        serviceVo.setListSearchVo(codeInfo.getDtoName());
+        serviceVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(serviceVo.getGenericFiled()));
+        //setgenerServiceInfo(codeInfo, serviceVo);
+
+        dataMap.put("info", serviceVo);
+
+        String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getServicePath()) + "/" + classFileName;
+        outPutTemplateContent(outputPath, "service.ftl",dataMap);
     }
 
     private void outPutTemplateContent(String outPutPath, String templateName, Map<String, Object> dataMap) {
@@ -159,6 +194,17 @@ public class GenerCodeService {
         }
     }
 
+    public void setgenerServiceInfo(GeneratorCodeInfo codeInfo, ServiceVo serviceVo) {
+        String tableName = codeInfo.getTableInfo().getTableName();
+        String className = StringUtil.firstCharUpper(tableName) + "Service";
+        serviceVo.setMapperClass(StringUtil.firstCharUpper(tableName) + "Mapper");
+        serviceVo.setMapperName(tableName + "Mapper");
+        String classFileName = className + ".java";
+        String respClass = serviceVo.getRespClass();
+        serviceVo.setRespVo(respClass.substring(respClass.lastIndexOf(".") + 1, respClass.length()));
+        serviceVo.setPackName(codeInfo.getServicePath());
+        serviceVo.setClassName(classFileName);
+    }
     /**
      *
      *@Description: 把数据库类型转JAVA类型

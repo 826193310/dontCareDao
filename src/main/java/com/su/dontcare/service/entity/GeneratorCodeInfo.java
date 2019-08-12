@@ -25,6 +25,13 @@ public class GeneratorCodeInfo {
     private String dtoName; // dto 对象名称
     private List<String> mapperImportClass; // mapper 需要引入的 class
     private List<String> dtoImportClass; // dto 需要引入的 class
+    private boolean generatorService; // 是否生成service 层
+    private boolean generatorController; // 是否生成 controller 层
+    private boolean generatorSwagger; // 是否生成swagger 接口
+    private String dtoExtendClass; // dto 接口集成类
+    private String respClass; // controller 和 service 层返回处理, 包的全路径
+    private boolean respGeneric; // 返回类是否为泛型
+    private String genericFiled; // resp 类型的泛型字段
 
     public String getOutputPath() {
         return outputPath;
@@ -144,5 +151,61 @@ public class GeneratorCodeInfo {
 
     public void setDtoImportClass(List<String> dtoImportClass) {
         this.dtoImportClass = dtoImportClass;
+    }
+
+    public boolean isGeneratorService() {
+        return generatorService;
+    }
+
+    public void setGeneratorService(boolean generatorService) {
+        this.generatorService = generatorService;
+    }
+
+    public boolean isGeneratorController() {
+        return generatorController;
+    }
+
+    public void setGeneratorController(boolean generatorController) {
+        this.generatorController = generatorController;
+    }
+
+    public boolean isGeneratorSwagger() {
+        return generatorSwagger;
+    }
+
+    public void setGeneratorSwagger(boolean generatorSwagger) {
+        this.generatorSwagger = generatorSwagger;
+    }
+
+    public String getDtoExtendClass() {
+        return dtoExtendClass;
+    }
+
+    public void setDtoExtendClass(String dtoExtendClass) {
+        this.dtoExtendClass = dtoExtendClass;
+    }
+
+    public String getRespClass() {
+        return respClass;
+    }
+
+    public void setRespClass(String respClass) {
+        this.respClass = respClass;
+    }
+
+    public boolean isRespGeneric() {
+        return respGeneric;
+    }
+
+    public void setRespGeneric(boolean respGeneric) {
+        this.respGeneric = respGeneric;
+    }
+
+    public String getGenericFiled() {
+        return genericFiled;
+    }
+
+    public void setGenericFiled(String genericFiled) {
+        this.genericFiled = genericFiled;
     }
 }

@@ -1,7 +1,7 @@
 package ${info.packName};
 
 <#list info.dtoImportClass as importClass>
-    import ${importClass};
+import ${importClass};
 </#list>
 
 public class ${info.className} {
