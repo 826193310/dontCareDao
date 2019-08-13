@@ -58,10 +58,11 @@ public class GenerCodeService {
      **/
     public void generCode(GeneratorCodeInfo codeInfo) {
         // 先生成Mapper 文件
-        //generMapper(codeInfo);
-        //generMapperInterFace(codeInfo);
-        //generDtoVo(codeInfo);
+        generMapper(codeInfo);
+        generMapperInterFace(codeInfo);
+        generDtoVo(codeInfo);
         generService(codeInfo);
+        generController(codeInfo);
     }
 
     public void generMapper(GeneratorCodeInfo codeInfo) {
@@ -137,7 +138,7 @@ public class GenerCodeService {
 
     /**
      *
-     *@Description: 生成  service
+     *@Description: 生成  service 文件
      *@Param: [codeInfo]
      *@Author: guanzhou.su
      *@Date: 2019/8/10
@@ -156,17 +157,65 @@ public class GenerCodeService {
         serviceVo.setMapperName(tableName + "Mapper");
         String classFileName = className + ".java";
         String respClass = serviceVo.getRespClass();
+        String respPageClass = serviceVo.getPageRespClass();
         serviceVo.setRespVo(respClass.substring(respClass.lastIndexOf(".") + 1, respClass.length()));
+        if (respPageClass != null) {
+            serviceVo.setPageRespVo(respPageClass.substring(respPageClass.lastIndexOf(".") + 1, respPageClass.length()));
+        }
+
         serviceVo.setPackName(codeInfo.getServicePath());
         serviceVo.setClassName(className);
         serviceVo.setListSearchVo(codeInfo.getDtoName());
         serviceVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(serviceVo.getGenericFiled()));
+        List<String> classes = generatorCodeUtil.getServiceImportClass(serviceVo);
+        serviceVo.setServiceImportClass(classes);
         //setgenerServiceInfo(codeInfo, serviceVo);
 
         dataMap.put("info", serviceVo);
 
         String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getServicePath()) + "/" + classFileName;
         outPutTemplateContent(outputPath, "service.ftl",dataMap);
+    }
+
+    /**
+     *
+     *@Description: 生成  controller 文件
+     *@Param: [codeInfo]
+     *@Author: guanzhou.su
+     *@Date: 2019/8/10
+     *@return: void
+     *
+     **/
+    private void generController(GeneratorCodeInfo codeInfo) {
+        if (!codeInfo.isGenerController()) return;
+
+        ControllerVo controllerVo = new ControllerVo();
+        BeanUtils.copyProperties(codeInfo, controllerVo);
+        Map<String, Object> dataMap = new HashMap<>();
+        //String dtoName = codeInfo.getDtoName();
+        String tableName = codeInfo.getTableInfo().getTableName();
+        String className = StringUtil.firstCharUpper(tableName) + "Controller";
+        controllerVo.setServiceClass(StringUtil.firstCharUpper(tableName) + "Service");
+        controllerVo.setServiceName(tableName + "Service");
+        String classFileName = className + ".java";
+        String respClass = controllerVo.getRespClass();
+        String respPageClass = controllerVo.getPageRespClass();
+        controllerVo.setRespVo(respClass.substring(respClass.lastIndexOf(".") + 1, respClass.length()));
+        if (respPageClass != null) {
+            controllerVo.setPageRespVo(respPageClass.substring(respPageClass.lastIndexOf(".") + 1, respPageClass.length()));
+        }
+
+        controllerVo.setPackName(codeInfo.getControllerPath());
+        controllerVo.setClassName(className);
+        controllerVo.setParamVo(codeInfo.getDtoName());
+        controllerVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(controllerVo.getGenericFiled()));
+        List<String> classes = generatorCodeUtil.getControllerImportClass(controllerVo);
+        controllerVo.setControllerImportClass(classes);
+
+        dataMap.put("info", controllerVo);
+
+        String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getControllerPath()) + "/" + classFileName;
+        outPutTemplateContent(outputPath, "controller.ftl",dataMap);
     }
 
     private void outPutTemplateContent(String outPutPath, String templateName, Map<String, Object> dataMap) {

@@ -9,18 +9,18 @@ import java.util.List;
 *@Date: 2019/8/10
  *
 **/
-public class ServiceVo extends GeneratorCodeInfo {
+public class ControllerVo extends GeneratorCodeInfo {
     private String packName; // 包地址
     private String className; // 类名
     private String attrStr; // 类属性
-    private String mapperClass; // service Mapper类
-    private String mapperName; // mapper 名称
+    private String serviceClass; // service 类
+    private String serviceName; // service  名称
     private String respVo; // resp 名称
     private String pageRespVo; // 分页返回类
-    private String listSearchVo; // 查询list 的时候的参数变量
+    private String paramVo; // 查询的时候的参数变量
     private String genericFiledGeter; // 泛型字段getter方法
     private String genericFiledSeter; // 泛型字段setter方法
-    private List<String> serviceImportClass; // service 层引进的class
+    private List<String> controllerImportClass; // service 层引进的class
 
     public String getPackName() {
         return packName;
@@ -46,20 +46,20 @@ public class ServiceVo extends GeneratorCodeInfo {
         this.attrStr = attrStr;
     }
 
-    public String getMapperClass() {
-        return mapperClass;
+    public String getServiceClass() {
+        return serviceClass;
     }
 
-    public void setMapperClass(String mapperClass) {
-        this.mapperClass = mapperClass;
+    public void setServiceClass(String serviceClass) {
+        this.serviceClass = serviceClass;
     }
 
-    public String getMapperName() {
-        return mapperName;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setMapperName(String mapperName) {
-        this.mapperName = mapperName;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getRespVo() {
@@ -70,12 +70,12 @@ public class ServiceVo extends GeneratorCodeInfo {
         this.respVo = respVo;
     }
 
-    public String getListSearchVo() {
-        return listSearchVo;
+    public String getParamVo() {
+        return paramVo;
     }
 
-    public void setListSearchVo(String listSearchVo) {
-        this.listSearchVo = listSearchVo;
+    public void setParamVo(String paramVo) {
+        this.paramVo = paramVo;
     }
 
     public String getGenericFiledGeter() {
@@ -102,11 +102,11 @@ public class ServiceVo extends GeneratorCodeInfo {
         this.pageRespVo = pageRespVo;
     }
 
-    public List<String> getServiceImportClass() {
-        return serviceImportClass;
+    public List<String> getControllerImportClass() {
+        return controllerImportClass;
     }
 
-    public void setServiceImportClass(List<String> serviceImportClass) {
-        this.serviceImportClass = serviceImportClass;
+    public void setControllerImportClass(List<String> controllerImportClass) {
+        this.controllerImportClass = controllerImportClass;
     }
 }

@@ -43,7 +43,7 @@
         SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName}
         <where>
             <#list info.tableInfo.fields as field>
-                <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
+            <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
             </#list>
         </where>
     </select>
@@ -66,5 +66,4 @@
         WHERE ${info.tableInfo.primaryKey} = <#noparse>#{</#noparse>${info.tableInfo.primaryKey}<#noparse>}</#noparse>
     </update>
     </#if>
-
 </mapper>

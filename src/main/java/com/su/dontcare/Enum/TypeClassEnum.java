@@ -1,5 +1,8 @@
 package com.su.dontcare.Enum;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 /**
 *
 *@Description: java 字段和引进
@@ -11,7 +14,14 @@ public enum TypeClassEnum {
     INTEGER("Integer","java.lang.Integer"),
     DATE("Date", "java.sql.Date"),
     LONG("Long", "java.lang.Long"),
-    BIT("BIT", "java.lang.Integer");
+    BigDecimal("BigDecimal", "java.math.BigDecimal"),
+    Float("Float", "java.lang.Float"),
+    Double("Double", "java.lang.Double"),
+    Time("Time", "java.sql.Time"),
+    Timestamp("Timestamp", "java.lang.Double"),
+    Byte("Byte", "java.lang.Byte"),
+    ByteArr("Byte[]", "java.lang.Byte");
+
     private String typeName;
     private String typeImportClass;
     TypeClassEnum(String typeName, String typeImportClass) {

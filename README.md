@@ -11,6 +11,8 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * service 层面自定义自己的返回类
 * 支持是否集成 swagger ， 如果集成 swagger ，则会在controller 方法生成swagger 注解
 
+# 使用注意事项
+* 如果需要生成 Service 层，需要填写 respVo 属性为你返回类的全包名，且需要为泛型
 # 后续更多功能
 * web 界面支持
 * 多选操作

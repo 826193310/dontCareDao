@@ -9,13 +9,25 @@ package com.su.dontcare.Enum;
 public enum MysqlFieldToJavaEnum {
     VARCHAR("VARCHAR", "String"),
     CHAR("CHAR", "String"),
-    BINARY("BINARY", "byte[]"),
+    BINARY("BINARY", "Byte[]"),
     FLOAT("FLOAT", "Float"),
     DATE("DATE", "Date"),
     INTEGER("INTEGER", "Integer"),
     BIT("BIT", "Integer"),
     INT("INT", "Integer"),
-    DATETIME("DATETIME", "Date");
+    DATETIME("DATETIME", "Date"),
+    BIGINT("BIGINT", "Long"),
+    LONGVARCHAR("LONGVARCHAR", "String"),
+    NUMERIC("NUMERIC", "BigDecimal"),
+    DECIMAL("DECIMAL", "BigDecimal"),
+    TINYINT("TINYINT", "Integer"),
+    SMALLINT("SMALLINT", "Integer"),
+    REAL("REAL", "Float"),
+    DOUBLE("DOUBLE", "Double"),
+    VARBINARY("VARBINARY", "Byte[]"),
+    LONGVARBINARY("LONGVARBINARY", "Byte[]"),
+    TIME("TIME", "Time"),
+    TIMESTAMP("TIMESTAMP", "java.sql.Timestamp");
     private String mysqlType;
     private String javaType;
     MysqlFieldToJavaEnum(String mysqlType, String javaType) {

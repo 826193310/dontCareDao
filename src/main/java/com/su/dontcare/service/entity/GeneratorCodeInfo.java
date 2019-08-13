@@ -26,12 +26,16 @@ public class GeneratorCodeInfo {
     private List<String> mapperImportClass; // mapper 需要引入的 class
     private List<String> dtoImportClass; // dto 需要引入的 class
     private boolean generatorService; // 是否生成service 层
-    private boolean generatorController; // 是否生成 controller 层
     private boolean generatorSwagger; // 是否生成swagger 接口
     private String dtoExtendClass; // dto 接口集成类
     private String respClass; // controller 和 service 层返回处理, 包的全路径
     private boolean respGeneric; // 返回类是否为泛型
     private String genericFiled; // resp 类型的泛型字段
+
+    private boolean enablePageHelper; // 是否在 controller 和 service 生成分页
+    private String pageRespClass; // 分页时返回类
+    private boolean pageRespGeneric; // 分页返回对象是否泛型
+    private PageVoAttr pageVoAttr; // 分页属性类
 
     public String getOutputPath() {
         return outputPath;
@@ -161,14 +165,6 @@ public class GeneratorCodeInfo {
         this.generatorService = generatorService;
     }
 
-    public boolean isGeneratorController() {
-        return generatorController;
-    }
-
-    public void setGeneratorController(boolean generatorController) {
-        this.generatorController = generatorController;
-    }
-
     public boolean isGeneratorSwagger() {
         return generatorSwagger;
     }
@@ -207,5 +203,37 @@ public class GeneratorCodeInfo {
 
     public void setGenericFiled(String genericFiled) {
         this.genericFiled = genericFiled;
+    }
+
+    public boolean isEnablePageHelper() {
+        return enablePageHelper;
+    }
+
+    public void setEnablePageHelper(boolean enablePageHelper) {
+        this.enablePageHelper = enablePageHelper;
+    }
+
+    public String getPageRespClass() {
+        return pageRespClass;
+    }
+
+    public void setPageRespClass(String pageRespClass) {
+        this.pageRespClass = pageRespClass;
+    }
+
+    public boolean isPageRespGeneric() {
+        return pageRespGeneric;
+    }
+
+    public void setPageRespGeneric(boolean pageRespGeneric) {
+        this.pageRespGeneric = pageRespGeneric;
+    }
+
+    public PageVoAttr getPageVoAttr() {
+        return pageVoAttr;
+    }
+
+    public void setPageVoAttr(PageVoAttr pageVoAttr) {
+        this.pageVoAttr = pageVoAttr;
     }
 }
