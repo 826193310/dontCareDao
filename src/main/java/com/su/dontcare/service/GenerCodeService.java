@@ -77,7 +77,7 @@ public class GenerCodeService {
         codeVo.setFieldsNotContainId(fieldUtil.getFieldsExCludPrimary(codeVo.getTableInfo().getFields()));
         dataMap.put("info", codeVo);
         String mapperXmlName = mapperName + ".xml";
-        String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getMapperPath()) + "/" +  mapperXmlName;
+        String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getMapperXmlPath()) + "/" +  mapperXmlName;
         outPutTemplateContent(outputPath, "mapper.ftl",dataMap);
     }
 

@@ -16,6 +16,7 @@ public class GeneratorCodeInfo {
     private boolean generController; // 是否生成 controller 层面的代码
     private String respVo; // 返回类， 请写完整报名
     private TableInfo tableInfo; // 表信息
+    private String mapperXmlPath; // Mapper.xml 生成路径
     private String mapperPath; // Mapper 生成路径
     private String servicePath; // service 生成路径
     private String controllerPath; // controller 生成路径
@@ -235,5 +236,13 @@ public class GeneratorCodeInfo {
 
     public void setPageVoAttr(PageVoAttr pageVoAttr) {
         this.pageVoAttr = pageVoAttr;
+    }
+
+    public String getMapperXmlPath() {
+        return mapperXmlPath;
+    }
+
+    public void setMapperXmlPath(String mapperXmlPath) {
+        this.mapperXmlPath = mapperXmlPath;
     }
 }

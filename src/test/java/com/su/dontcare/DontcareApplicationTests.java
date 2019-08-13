@@ -31,11 +31,12 @@ public class DontcareApplicationTests {
 	}
 
 	@Test
-	public void testJDBC() {
+	public void testGenerator() {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();
 		tableInfo.setTableName("tblfasfdfssaveinfo");
 		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
+		codeInfo.setMapperXmlPath("com.su.dontcare.dao.xml");
 		codeInfo.setGeneratorService(true); // 是否生成service层
 		codeInfo.setServicePath("com.su.dontcare.service"); // serivce 接口生成包
 		codeInfo.setDtoPath("com.su.dontcare.dto");
