@@ -39,7 +39,8 @@ public class DontcareApplicationTests {
 		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
 		codeInfo.setMapperXmlPath("com.su.dontcare.dao.Mapper"); // 生成 Mapper.xml 到该包下
 		codeInfo.setDtoPath("com.su.dontcare.dto"); // 生成 Dto 到该包下
-
+		codeInfo.setDtoExtendClass("com.su.dontcare.entity.BaseResp"); // dto 继承类
+		codeInfo.setDtoExtendsClassFields("cUser, cDate, uUser, uDate"); // dto 继承类所含字段
 
 		codeInfo.setGeneratorService(true); // 是否生成service层
 		codeInfo.setServicePath("com.su.dontcare.service"); // serivce 接口生成包

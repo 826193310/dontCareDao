@@ -24,11 +24,13 @@ public class GeneratorCodeInfo {
     private String projectPath; // 项目路径
     private String primaryKeyType; // 主键类型
     private String dtoName; // dto 对象名称
+    private String dtoExtendClass; // dto 继承类，带全包名的类， 例如 com.su.BaseDto
+    private String dtoExtendsClassFields; // dto 继承类所含字段， 逗号拼接的字符串 例： "name,age,cDate,uDate"
     private List<String> mapperImportClass; // mapper 需要引入的 class
     private List<String> dtoImportClass; // dto 需要引入的 class
     private boolean generatorService; // 是否生成service 层
     private boolean generatorSwagger; // 是否生成swagger 接口
-    private String dtoExtendClass; // dto 接口集成类
+
     private String respClass; // controller 和 service 层返回处理, 包的全路径
     private boolean respGeneric; // 返回类是否为泛型
     private String genericFiled; // resp 类型的泛型字段
@@ -244,5 +246,13 @@ public class GeneratorCodeInfo {
 
     public void setMapperXmlPath(String mapperXmlPath) {
         this.mapperXmlPath = mapperXmlPath;
+    }
+
+    public String getDtoExtendsClassFields() {
+        return dtoExtendsClassFields;
+    }
+
+    public void setDtoExtendsClassFields(String dtoExtendsClassFields) {
+        this.dtoExtendsClassFields = dtoExtendsClassFields;
     }
 }

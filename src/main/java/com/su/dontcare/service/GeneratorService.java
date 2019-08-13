@@ -64,11 +64,12 @@ public class GeneratorService {
      **/
     public void setAttribute(GeneratorCodeInfo codeInfo) {
         FieldUtil.convertTypeToJavaByFieldList(codeInfo.getTableInfo());
-        codeInfo.setDtoImportClass(generatorCodeUtil.getImportClass(codeInfo.getTableInfo().getFields()));
+        codeInfo.setDtoImportClass(generatorCodeUtil.getImportClass(codeInfo));
         TableInfo tableInfo = codeInfo.getTableInfo();
         codeInfo.setPrimaryKeyType(generatorCodeUtil.getPrimaryType(tableInfo.getFields()));
         codeInfo.setDtoName(StringUtil.firstCharUpper(tableInfo.getTableName()));
         codeInfo.setMapperImportClass(generatorCodeUtil.getMapperImportClass(codeInfo));
+
     }
     /**
      *

@@ -8,6 +8,7 @@ import com.su.dontcare.service.entity.ServiceVo;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,12 +29,26 @@ public class GeneratorCodeUtil {
      *@return: java.util.List<java.lang.String>
      *
      **/
-    public  List<String> getImportClass(List<FieldInfo> fields) {
+    public  List<String> getImportClass(GeneratorCodeInfo codeInfo) {
         List<String> list = new ArrayList<>();
-        for (FieldInfo fieldInfo : fields) {
+        for (FieldInfo fieldInfo : codeInfo.getTableInfo().getFields()) {
             list.add(getImportClassByJavaType(fieldInfo.getJavaType()));
         }
+        if (codeInfo.getDtoExtendClass() != null) {
+            list.add(codeInfo.getDtoExtendClass());
+        }
         return list;
+    }
+
+    public void deleteSameFieldFromExtend(GeneratorCodeInfo codeInfo) {
+        List<FieldInfo> fields = codeInfo.getTableInfo().getFields();
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(codeInfo.getDtoExtendsClassFields().split(",")));
+        for (int i = 0; i < fields.size(); i++) {
+            if (arrayList.contains(fields.get(i).getName())) {
+                fields.remove(i);
+                i--;
+            }
+        }
     }
 
     public String getImportClassByJavaType(String javaType) {
