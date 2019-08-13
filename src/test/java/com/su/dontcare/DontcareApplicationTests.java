@@ -34,29 +34,33 @@ public class DontcareApplicationTests {
 	public void testGenerator() {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();
-		tableInfo.setTableName("tblfasfdfssaveinfo");
+		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
+		tableInfo.setTableName("tblfasfdfssaveinfo");// 要生成的表
 		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
-		codeInfo.setMapperXmlPath("com.su.dontcare.dao.xml");
+		codeInfo.setMapperXmlPath("com.su.dontcare.dao.Mapper"); // 生成 Mapper.xml 到该包下
+		codeInfo.setDtoPath("com.su.dontcare.dto"); // 生成 Dto 到该包下
+
+
 		codeInfo.setGeneratorService(true); // 是否生成service层
 		codeInfo.setServicePath("com.su.dontcare.service"); // serivce 接口生成包
-		codeInfo.setDtoPath("com.su.dontcare.dto");
 		codeInfo.setRespClass("com.su.dontcare.service.entity.Resp"); // 通用返回类
 		codeInfo.setRespGeneric(true); // 返回类是否泛型， 作用于Service 层和 controller 层
-		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
 		codeInfo.setGenericFiled("data");
 
 		// 分页相关属性
-		codeInfo.setEnablePageHelper(true);
-		codeInfo.setPageRespClass("com.su.dontcare.service.entity.PageResp");
-		codeInfo.setPageRespGeneric(true);
-		PageVoAttr pageVoAttr = new PageVoAttr();
-		pageVoAttr.setListToPageMethod("setPageInfo");
+		codeInfo.setEnablePageHelper(true); // 是否开启生成分页方法
+		codeInfo.setPageRespClass("com.su.dontcare.service.entity.PageResp");// 分页返回类
+		codeInfo.setPageRespGeneric(true); // 分页返回类是否泛型
+
+		PageVoAttr pageVoAttr = new PageVoAttr(); // 分页返回类属性
+		pageVoAttr.setListToPageMethod("setPageInfo"); // 分页返回类组装 PageInfo 的方法
 		codeInfo.setPageVoAttr(pageVoAttr);
 		codeInfo.setTableInfo(tableInfo);
 
+
 		// 生成controller 相关属性
-		codeInfo.setGenerController(true);
-		codeInfo.setControllerPath("com.su.dontcare.Controller");
+		codeInfo.setGenerController(true); // 是否生成controller
+		codeInfo.setControllerPath("com.su.dontcare.Controller"); // controller 包名
 		generatorService.generatorBySingleTable(codeInfo);
 	}
 
