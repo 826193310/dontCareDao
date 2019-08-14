@@ -45,8 +45,7 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
     public <#if (info.pageRespGeneric)>${info.pageRespVo}<${info.listSearchVo}><#else>PageInfo<${info.listSearchVo}></#if> selectPageList(${info.listSearchVo} ${info.tableInfo.tableName}, int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
         List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.tableInfo.tableName});
-        PageInfo<${info.listSearchVo}> page = new PageInfo<${info.listSearchVo}>();
-        page.setList(list);
+        PageInfo<${info.listSearchVo}> page = new PageInfo<${info.listSearchVo}>(list);
         <#if (info.pageRespGeneric)>
         ${info.pageRespVo}<${info.listSearchVo}> pageResp = new ${info.pageRespVo}<${info.listSearchVo}>();
         pageResp.${info.pageVoAttr.listToPageMethod}(page);
