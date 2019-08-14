@@ -55,4 +55,17 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
         </#if>
     }
     </#if>
+
+    <#if info.primaryKeyType?exists>
+    public <#if (info.respGeneric)>${info.respVo}<${info.listSearchVo}><#else>${info.listSearchVo}</#if> findByPrimary(${info.primaryKeyType} id) {
+        ${info.listSearchVo} respVo = ${info.mapperName}.selectByPrimary(id);
+         <#if (info.respGeneric)>
+         ${info.respVo}<${info.listSearchVo}> resp = new ${info.respVo}<${info.listSearchVo}>();
+         resp.${info.genericFiledSeter}(respVo);
+         return resp;
+         <#else>
+         return respVo;
+         </#if>
+    }
+    </#if>
 }

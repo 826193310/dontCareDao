@@ -53,4 +53,11 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
         </#if>
     }
     </#if>
+
+    <#if info.primaryKeyType?exists>
+    @RequestMapping(value="${info.tableInfo.tableName}/findById/{id}",method=RequestMethod.GET)
+    public <#if (info.respGeneric)>${info.respVo}<${info.paramVo}><#else>${info.paramVo}</#if> findByPrimary(@PathVariable("id") ${info.primaryKeyType} id) {
+        return ${info.serviceName}.findByPrimary(id);
+    }
+    </#if>
 }
