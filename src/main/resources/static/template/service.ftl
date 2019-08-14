@@ -5,7 +5,7 @@ import ${importClass};
 </#list>
 
 @Service
-public class ${info.className} {
+public class ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 
     @Autowired
     private ${info.mapperClass} ${info.mapperName};

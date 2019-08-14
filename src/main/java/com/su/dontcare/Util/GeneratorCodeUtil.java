@@ -35,14 +35,17 @@ public class GeneratorCodeUtil {
             list.add(getImportClassByJavaType(fieldInfo.getJavaType()));
         }
         if (codeInfo.getDtoExtendClass() != null) {
-            list.add(codeInfo.getDtoExtendClass());
+            String extendClass = codeInfo.getDtoExtendClass();
+            list.add(extendClass);
+            // 设置Dto 继承的类名
+            //codeInfo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
         }
         return list;
     }
 
     public void deleteSameFieldFromExtend(GeneratorCodeInfo codeInfo) {
         List<FieldInfo> fields = codeInfo.getTableInfo().getFields();
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(codeInfo.getDtoExtendsClassFields().split(",")));
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(codeInfo.getDtoExtendsClassFields().replace(" ","").split(",")));
         for (int i = 0; i < fields.size(); i++) {
             if (arrayList.contains(fields.get(i).getName())) {
                 fields.remove(i);
@@ -77,6 +80,9 @@ public class GeneratorCodeUtil {
         // DTO 包所在
         list.add(codeInfo.getDtoPath() + "." + StringUtil.firstCharUpper(codeInfo.getTableInfo().getTableName()));
         list.add(getPrimaryImportClass(codeInfo.getTableInfo().getFields()));
+        if(codeInfo.getMapperExtendClass() != null && codeInfo.getMapperExtendClass().trim() != "") {
+            list.add(codeInfo.getMapperExtendClass());
+        }
         return list;
     }
 
@@ -102,6 +108,9 @@ public class GeneratorCodeUtil {
             list.add("com.github.pagehelper.PageHelper");
             list.add("com.github.pagehelper.PageInfo");
             if (codeInfo.isPageRespGeneric()) list.add(codeInfo.getPageRespClass());
+        }
+        if(codeInfo.getServiceExtendClass() != null && codeInfo.getServiceExtendClass().trim() != "") {
+            list.add(codeInfo.getServiceExtendClass());
         }
         return list;
     }
@@ -129,6 +138,9 @@ public class GeneratorCodeUtil {
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
         if (codeInfo.isEnablePageHelper()) {
             if (codeInfo.isPageRespGeneric()) list.add(codeInfo.getPageRespClass());
+        }
+        if(codeInfo.getControllerExtendClass() != null && codeInfo.getControllerExtendClass().trim() != "") {
+            list.add(codeInfo.getControllerExtendClass());
         }
         return list;
     }

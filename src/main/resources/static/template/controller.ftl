@@ -5,7 +5,7 @@ import ${importClass};
 </#list>
 
 @RestController
-public class ${info.className} {
+public class ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 
     @Autowired
     private ${info.serviceClass} ${info.serviceName};

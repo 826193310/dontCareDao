@@ -14,18 +14,21 @@ public class GeneratorCodeInfo {
     private String packagePath; // 包路径
     private boolean generService; // 是否生成 service层代码
     private boolean generController; // 是否生成 controller 层面的代码
+    private String controllerPath; // controller 生成路径
+    private String controllerExtendClass; // controller 继承类，带全包名的类， 如 com.su.dontcare.Controller.BaseController
+
     private String respVo; // 返回类， 请写完整报名
     private TableInfo tableInfo; // 表信息
     private String mapperXmlPath; // Mapper.xml 生成路径
     private String mapperPath; // Mapper 生成路径
     private String servicePath; // service 生成路径
-    private String controllerPath; // controller 生成路径
     private String dtoPath; // dto 输出路径
     private String projectPath; // 项目路径
     private String primaryKeyType; // 主键类型
     private String dtoName; // dto 对象名称
     private String dtoExtendClass; // dto 继承类，带全包名的类， 例如 com.su.BaseDto
     private String dtoExtendsClassFields; // dto 继承类所含字段， 逗号拼接的字符串 例： "name,age,cDate,uDate"
+    private String extendsClassName; // 继承类的类名, dto 继承类，controller 继承类， service 继承类
     private List<String> mapperImportClass; // mapper 需要引入的 class
     private List<String> dtoImportClass; // dto 需要引入的 class
     private boolean generatorService; // 是否生成service 层
@@ -39,6 +42,8 @@ public class GeneratorCodeInfo {
     private String pageRespClass; // 分页时返回类
     private boolean pageRespGeneric; // 分页返回对象是否泛型
     private PageVoAttr pageVoAttr; // 分页属性类
+    private String serviceExtendClass; // // service 继承类，带全包名的类， 如 com.su.dontcare.service.BaseService
+    private String mapperExtendClass; // // mapper 继承类，带全包名的类， 如 com.su.dontcare.mapper.BaseMapper
 
     public String getOutputPath() {
         return outputPath;
@@ -254,5 +259,37 @@ public class GeneratorCodeInfo {
 
     public void setDtoExtendsClassFields(String dtoExtendsClassFields) {
         this.dtoExtendsClassFields = dtoExtendsClassFields;
+    }
+
+    public String getExtendsClassName() {
+        return extendsClassName;
+    }
+
+    public void setExtendsClassName(String extendsClassName) {
+        this.extendsClassName = extendsClassName;
+    }
+
+    public String getControllerExtendClass() {
+        return controllerExtendClass;
+    }
+
+    public void setControllerExtendClass(String controllerExtendClass) {
+        this.controllerExtendClass = controllerExtendClass;
+    }
+
+    public String getServiceExtendClass() {
+        return serviceExtendClass;
+    }
+
+    public void setServiceExtendClass(String serviceExtendClass) {
+        this.serviceExtendClass = serviceExtendClass;
+    }
+
+    public String getMapperExtendClass() {
+        return mapperExtendClass;
+    }
+
+    public void setMapperExtendClass(String mapperExtendClass) {
+        this.mapperExtendClass = mapperExtendClass;
     }
 }

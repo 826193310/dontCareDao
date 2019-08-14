@@ -99,7 +99,11 @@ public class GenerCodeService {
         codeVo.setPackName(codeInfo.getMapperPath());
         codeVo.setClassName(mapperName);
         FieldUtil.convertTypeToJavaByFieldList(codeVo.getTableInfo());
-
+        if (codeInfo.getMapperExtendClass() != null && codeInfo.getMapperExtendClass().trim() != "") {
+            String extendClass = codeInfo.getMapperExtendClass();
+            // 设置Dto 继承的类名
+            codeVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
+        }
         dataMap.put("info", codeVo);
 
         // 生成的 mapper interface 文件名
@@ -125,6 +129,14 @@ public class GenerCodeService {
         Map<String, Object> dataMap = new HashMap<>();
         String tableName = codeInfo.getTableInfo().getTableName();
         String className = StringUtil.firstCharUpper(tableName);
+        if (codeInfo.getDtoExtendClass() != null) {
+            String extendClass = codeInfo.getDtoExtendClass();
+            // 设置Dto 继承的类名
+            dtoVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
+            if (codeInfo.getDtoExtendsClassFields() != null) {
+                generatorCodeUtil.deleteSameFieldFromExtend(dtoVo);
+            }
+        }
 
         String classFileName = className + ".java";
         dtoVo.setPackName(codeInfo.getDtoPath());
@@ -169,6 +181,11 @@ public class GenerCodeService {
         serviceVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(serviceVo.getGenericFiled()));
         List<String> classes = generatorCodeUtil.getServiceImportClass(serviceVo);
         serviceVo.setServiceImportClass(classes);
+        if (codeInfo.getDtoExtendClass() != null) {
+            String extendClass = codeInfo.getServiceExtendClass();
+            // 设置Dto 继承的类名
+            serviceVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
+        }
         //setgenerServiceInfo(codeInfo, serviceVo);
 
         dataMap.put("info", serviceVo);
@@ -211,7 +228,11 @@ public class GenerCodeService {
         controllerVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(controllerVo.getGenericFiled()));
         List<String> classes = generatorCodeUtil.getControllerImportClass(controllerVo);
         controllerVo.setControllerImportClass(classes);
-
+        if (codeInfo.getDtoExtendClass() != null) {
+            String extendClass = codeInfo.getControllerExtendClass();
+            // 设置Dto 继承的类名
+            controllerVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
+        }
         dataMap.put("info", controllerVo);
 
         String outputPath = codeInfo.getOutputPath() + "/" + StringUtil.pageFormatToFilePath(codeInfo.getControllerPath()) + "/" + classFileName;

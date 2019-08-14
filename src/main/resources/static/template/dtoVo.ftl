@@ -4,8 +4,7 @@ package ${info.packName};
 import ${importClass};
 </#list>
 
-public class ${info.className} {
-
+public class ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 <#list info.tableInfo.fields as field>
 
     // ${field.commons}
@@ -22,7 +21,4 @@ public class ${info.className} {
         this.${gster.name} = ${gster.name};
     }
 </#list>
-
-
-
 }

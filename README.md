@@ -5,7 +5,9 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 旨在通过这个工具，能更加智能地生成 从 controller 到 Dao 层之间的通用逻辑代码，不用关心增加字段后或者一些其它非业务性的问题，开发更加高效，智能，方便
 
 <a href="#feature" target="_self">特点</a><br>
-<a href="#use" target="_self">使用</a>
+<a href="#use" target="_self">使用</a><br>
+<a href="#notice" target="_self">注意事项</a><br>
+<a href="#feature" target="_self">后续更多功能</a><br>
 
 
 <span id = "feature"><h1> 特点</h1></span>
@@ -14,11 +16,10 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * 生成 service 层代码
 * service 层面自定义自己的返回类
 * 支持生成分页方法 （PageHelper形式）
-
+* 支持生成的 DTO 继承自己自定义的类（需要填写自定义继承类的包含字段，一般是表公用字段，创建时间更新时间等）
 
 #### 未实现
 * 生成 Mapper.xml 之后，如果再生成，不会覆盖自己写的xml
-* 支持生成的 DTO 继承自己自定义的类
 * 支持是否集成 swagger ， 如果集成 swagger ，则会在controller 方法生成swagger 注解
 
 <span id="use"><h1> 使用</h1></span>
@@ -51,11 +52,12 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * String controllerPath: 生成 controller 层到该包下
   
 
-# 使用注意事项
+<span id = "notice"><h1> 使用注意事项</h1></span>
 * 如果需要生成 Service 层，需要填写 respVo 属性为你返回类的全包名，且需要为泛型
 * 目前生成的类名和 service 基本都是以表名为准，后续支持自定义 Dto 名称
+* 暂时只支持 mysql 数据库
 
-# 后续更多功能
+<span id = "feature"><h1> 后续更多功能</h1></span>
 * web 界面支持
 * 多选操作
 * 自定义配置

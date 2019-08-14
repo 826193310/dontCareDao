@@ -4,7 +4,7 @@ package ${info.packName};
 import ${importClass};
 </#list>
 
-public interface ${info.className} {
+public interface ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 
     int insert(${info.dtoName} ${info.tableInfo.tableName});
 
