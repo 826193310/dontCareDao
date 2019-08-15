@@ -36,9 +36,14 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
 
     public <#if (info.respGeneric)>${info.respVo}<List<${info.listSearchVo}>><#else>List<${info.listSearchVo}></#if> selectList(${info.listSearchVo} ${info.tableInfo.tableName}) {
         List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.tableInfo.tableName});
+        <#if (info.respGeneric)>
         ${info.respVo}<List<${info.listSearchVo}>> resp = new ${info.respVo}<List<${info.listSearchVo}>>();
         resp.${info.genericFiledSeter}(list);
         return resp;
+        <#else>
+        return list;
+        </#if>
+
     }
     <#if (info.enablePageHelper)>
 

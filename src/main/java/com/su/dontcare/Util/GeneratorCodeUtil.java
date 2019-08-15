@@ -104,6 +104,8 @@ public class GeneratorCodeUtil {
         list.add("org.springframework.beans.factory.annotation.Autowired");
         list.add(codeInfo.getRespClass());
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
+        String tableName = codeInfo.getTableInfo().getTableName();
+        list.add(codeInfo.getMapperPath() + "." + StringUtil.firstCharUpper(tableName)  + "Mapper");
         if (codeInfo.isEnablePageHelper()) {
             list.add("com.github.pagehelper.PageHelper");
             list.add("com.github.pagehelper.PageInfo");
@@ -129,10 +131,10 @@ public class GeneratorCodeUtil {
         // 查询列表所需
         list.add("java.util.List");
         list.add("org.springframework.beans.factory.annotation.Autowired");
-        list.add("org.springframework.web.bind.annotation.PathVariable");
-        list.add("org.springframework.web.bind.annotation.RequestMapping");
-        list.add("org.springframework.web.bind.annotation.RequestMethod");
-        list.add("org.springframework.web.bind.annotation.RestController");
+        list.add("org.springframework.web.bind.annotation.*");
+        if (!codeInfo.isPageRespGeneric()) { // 不是泛型，需要引进 PageInfo
+            list.add("com.github.pagehelper.PageInfo");
+        }
         list.add(codeInfo.getServicePath() + "." + StringUtil.firstCharUpper(codeInfo.getTableInfo().getTableName()) + "Service");
         list.add(codeInfo.getRespClass());
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());

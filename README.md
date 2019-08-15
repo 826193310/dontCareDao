@@ -22,6 +22,11 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * 生成 Mapper.xml 之后，如果再生成，不会覆盖自己写的xml
 * 支持是否集成 swagger ， 如果集成 swagger ，则会在controller 方法生成swagger 注解
 
+#### 待考虑是否需要
+* 批量更新 （小数据量）
+* 批量 ID 删除 （小数据量）
+* 批量插入（小数据量）
+
 <span id="use"><h1> 使用</h1></span>
  目前 非正式版本仅支持在 DontcareApplicationTests 这个 test 类下进行生成, 主要通过核心配置类 GeneratorCodeInfo 生成
  列出该类相关参数的说明
