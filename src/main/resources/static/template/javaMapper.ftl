@@ -47,6 +47,13 @@ public interface ${info.className} <#if info.extendsClassName?exists>extends ${i
     **/
     ${info.dtoName} selectOneByDto(${info.dtoName} ${info.tableInfo.tableName});
 
+    /**
+    *
+    * 传入对象，统计匹配的数据条数（适用于增加时判断数据是否有重复）
+    *
+    **/
+    int countData(${info.dtoName} ${info.tableInfo.tableName});
+
     <#if info.primaryKeyType?exists>
     /**
     *

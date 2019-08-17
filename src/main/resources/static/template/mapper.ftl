@@ -7,6 +7,14 @@
         <#list info.tableInfo.fields as field>${field.name}<#if (info.tableInfo.fields?size == field_index + 1)><#else>, </#if></#list>
     </sql>
 
+    <sql id="equalFiled">
+        <where>
+            <#list info.tableInfo.fields as field>
+                <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
+            </#list>
+        </where>
+    </sql>
+
     <insert id="insert" parameterType="${info.insertDtoParamType}">
         INSERT INTO ${info.tableInfo.tableName} (
             <#list info.fieldsNotContainId as field>${field.name}<#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
@@ -34,27 +42,21 @@
 
     </#if>
     <#if info.tableInfo.primaryKey?exists >
-    <select id="selectByPrimary" resultType="${info.insertDtoParamType}">
+    <select id="selectByPrimary" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}" >
         SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName} WHERE ${info.tableInfo.primaryKey} = <#noparse>#{id}</#noparse>
     </select>
 
     </#if>
-    <select id="selectListByDto" resultType="${info.insertDtoParamType}">
-        SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName}
-        <where>
-            <#list info.tableInfo.fields as field>
-            <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
-            </#list>
-        </where>
+    <select id="selectListByDto" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}">
+        SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName} <include refid="equalFiled" />
     </select>
 
-    <select id="selectOneByDto" resultType="${info.insertDtoParamType}">
-        SELECT <include refid="baseColumns" /> FROM ${info.tableInfo.tableName}
-        <where>
-            <#list info.tableInfo.fields as field>
-            <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
-            </#list>
-        </where>
+    <select id="selectOneByDto" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}">
+        SELECT <include refid="baseColumns" /> FROM ${info.tableInfo.tableName} <include refid="equalFiled" />
+    </select>
+
+    <select id="countData" resultType="int" parameterType="${info.insertDtoParamType}">
+        SELECT count(1) FROM ${info.tableInfo.tableName} <include refid="equalFiled" />
     </select>
 
     <#if info.tableInfo.primaryKey?exists>
