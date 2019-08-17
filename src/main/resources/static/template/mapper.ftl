@@ -24,15 +24,18 @@
     </insert>
 
     <insert id="insertDynamic" parameterType="${info.insertDtoParamType}">
-        INSERT INTO ${info.tableInfo.tableName} (
+        INSERT INTO ${info.tableInfo.tableName}
+        <trim prefix="(" suffix=")" suffixOverrides="," >
         <#list info.fieldsNotContainId as field>
-            <if test="${field.name} != null">${field.name}<#if (info.fieldsNotContainId?size == field_index + 1)></if><#else>,</if></#if>
+            <if test="${field.name} != null">${field.name},</if>
         </#list>
-        ) VALUES (
+        </trim>
+         VALUES
+        <trim prefix="(" suffix=")" suffixOverrides="," >
         <#list info.fieldsNotContainId as field>
-            <if test="${field.name} != null"><#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse><#if (info.fieldsNotContainId?size == field_index + 1)></if><#else>,</if></#if>
+            <if test="${field.name} != null"><#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if>
         </#list>
-        )
+        </trim>
     </insert>
 
     <#if info.tableInfo.primaryKey?exists >
@@ -62,9 +65,11 @@
     <#if info.tableInfo.primaryKey?exists>
     <update id="updateByPrimary" parameterType="${info.insertDtoParamType}">
         UPDATE ${info.tableInfo.tableName}
+        <set>
         <#list info.fieldsNotContainId as field>
-            <set><if test="${field.name} != null">${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if></set>
+            <if test="${field.name} != null">${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if>
         </#list>
+        </set>
         WHERE ${info.tableInfo.primaryKey} = <#noparse>#{</#noparse>${info.tableInfo.primaryKey}<#noparse>}</#noparse>
     </update>
     </#if>
