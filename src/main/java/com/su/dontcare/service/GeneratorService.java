@@ -8,6 +8,7 @@ import com.su.dontcare.constant.YmlPropertiesConst;
 import com.su.dontcare.service.entity.FieldInfo;
 import com.su.dontcare.service.entity.GeneratorCodeInfo;
 import com.su.dontcare.service.entity.TableInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -46,13 +48,79 @@ public class GeneratorService {
      *
     **/
     public void generatorBySingleTable(GeneratorCodeInfo codeInfo){
+        System.out.println("===========代码生成开始==============");
         // 获取表的信息
-        TableInfo tableInfo = getTabelInfo(codeInfo.getTableInfo().getTableName());
-        codeInfo.setTableInfo(tableInfo);
-        setAttribute(codeInfo);
-        codeService.generCode(codeInfo);
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(codeInfo.getTableInfo().getTableName().split(",")));
+        ArrayList<String> dtoList = null;
+        if (codeInfo.getDtoName() != null && !"".equals(codeInfo.getDtoName().trim())) {
+            dtoList = new ArrayList<String>(Arrays.asList(codeInfo.getDtoName().split(",")));
+        }
+        for (int i = 0; i < arrayList.size(); i++) {
+            GeneratorCodeInfo temp = new GeneratorCodeInfo();
+            BeanUtils.copyProperties(codeInfo, temp);
+            String s = arrayList.get(i);
+            String dtoName = null;
+            if(dtoList != null && i < dtoList.size()) {
+                dtoName = dtoList.get(i);
+            }
+            temp.setDtoName(dtoName);
+            System.out.println("即将生成表" + s + "的相关映射");
+            TableInfo tableInfo = getTabelInfo(s.trim());
+            temp.setTableInfo(tableInfo);
+            setAttribute(temp);
+            codeService.generCode(temp);
+            System.out.println("表" + s + "的相关映射生成成功");
+        }
+       /* for (String s : arrayList) {
+            GeneratorCodeInfo temp = new GeneratorCodeInfo();
+            BeanUtils.copyProperties(codeInfo, temp);
+            System.out.println("即将生成表" + s + "的相关映射");
+            TableInfo tableInfo = getTabelInfo(s.trim());
+            temp.setTableInfo(tableInfo);
+            setAttribute(temp);
+            codeService.generCode(temp);
+            System.out.println("表" + s + "的相关映射生成成功");
+        }*/
+        System.out.println("==========代码生成成功==============");
     }
 
+    /**
+    * 
+    *@Description: 批量生成
+    *@Param: 
+    *@Author: guanzhou.su
+    *@Date: 2019/8/18
+    *@return: 
+     * 
+    **/
+    public void generatorTables(GeneratorCodeInfo codeInfo){
+        System.out.println("===========代码生成开始==============");
+        // 获取表的信息
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(codeInfo.getTableInfo().getTableName().split(",")));
+        ArrayList<String> dtoList = null;
+        if (codeInfo.getDtoName() != null && !"".equals(codeInfo.getDtoName().trim())) {
+            dtoList = new ArrayList<String>(Arrays.asList(codeInfo.getDtoName().split(",")));
+        }
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            String s = arrayList.get(i);
+            String dtoName = null;
+            if(dtoList != null && i < dtoList.size()) {
+                dtoName = dtoList.get(i);
+            }
+            System.out.println("即将生成表" + s + "的相关映射");
+            TableInfo tableInfo = getTabelInfo(s.trim());
+            codeInfo.setTableInfo(tableInfo);
+            setAttribute(codeInfo);
+            codeService.generCode(codeInfo);
+            System.out.println("表" + s + "的相关映射生成成功");
+        }
+        for (String s : arrayList) {
+
+        }
+        System.out.println("==========代码生成成功==============");
+    }
+    
     /**
      *
      *@Description: 设置相关字段和属性

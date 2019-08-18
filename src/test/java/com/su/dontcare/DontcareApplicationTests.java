@@ -35,23 +35,25 @@ public class DontcareApplicationTests {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();
 		codeInfo.setOutputPath("D:/job/self/dontcaredao/dontCareDao/src/main/java");
-		tableInfo.setTableName("tblfasfdfssaveinfo");// 要生成的表
+		tableInfo.setTableName("tbluser");// 要生成的表， 多表批量生成用逗号分隔， 如：tbluser,tblfasfdfssaveinfo,stu
 		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
 		codeInfo.setMapperXmlPath("com.su.dontcare.dao.Mapper"); // 生成 Mapper.xml 到该包下
 		codeInfo.setDtoPath("com.su.dontcare.dto"); // 生成 Dto 到该包下
+		codeInfo.setDtoName("User"); // dtoName. 设置这个的话， Mapper, Mapper.xml, Service, Dto, Controller 均按照此命名生成，
+									  // 否则按照表名首字符大写形式生成. 如果设多个，以逗号分隔即可。 如User,FasfdfsSaveInfo
 		codeInfo.setDtoExtendClass("com.su.dontcare.service.entity.BaseResp"); // dto 继承类
-		codeInfo.setDtoExtendsClassFields("cUser, cTime, uUser, uDate"); // dto 继承类所含字段
-		codeInfo.setMapperExtendClass("com.su.dontcare.mapper.BaseMapper"); // Mapper继承类
+		//codeInfo.setDtoExtendsClassFields("cUser, cTime, uUser, uDate"); // dto 继承类所含字段
+		//codeInfo.setMapperExtendClass("com.su.dontcare.mapper.BaseMapper"); // Mapper继承类
 		codeInfo.setGeneratorService(true); // 是否生成service层
 		codeInfo.setServicePath("com.su.dontcare.service"); // serivce 接口生成包
 		codeInfo.setRespClass("com.su.dontcare.service.entity.Resp"); // 通用返回类
-		codeInfo.setRespGeneric(true); // 返回类是否泛型， 作用于Service 层和 controller 层
+		//codeInfo.setRespGeneric(true); // 返回类是否泛型， 作用于Service 层和 controller 层
 		codeInfo.setGenericFiled("data");
 		codeInfo.setServiceExtendClass("com.su.dontcare.service.BaseService");
 		// 分页相关属性
 		codeInfo.setEnablePageHelper(true); // 是否开启生成分页方法
 		codeInfo.setPageRespClass("com.su.dontcare.service.entity.PageResp");// 分页返回类
-		codeInfo.setPageRespGeneric(true); // 分页返回类是否泛型
+		codeInfo.setPageRespGeneric(false); // 分页返回类是否泛型
 
 		PageVoAttr pageVoAttr = new PageVoAttr(); // 分页返回类属性
 		pageVoAttr.setListToPageMethod("setPageInfo"); // 分页返回类组装 PageInfo 的方法

@@ -17,6 +17,7 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * service 层面自定义自己的返回类
 * 支持生成分页方法 （PageHelper形式）
 * 支持生成的 DTO 继承自己自定义的类（需要填写自定义继承类的包含字段，一般是表公用字段，创建时间更新时间等）
+* 多表批量生成支持（逗号分割表名， 如 t1,t2,t3）
 * 支持自定义 Dto 名称，适合当表名称不适合直接变成Dto 名称的时候
 #### 未实现
 * 生成 Mapper.xml 之后，如果再生成，不会覆盖自己写的xml

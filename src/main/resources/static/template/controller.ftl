@@ -13,7 +13,7 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
     @RequestMapping(value="${info.tableInfo.tableName}/add",method=RequestMethod.POST)
     public ${info.respVo}<${info.paramVo}> add(@RequestBody ${info.paramVo} ${info.tableInfo.tableName}) {
         ${info.respVo}<${info.paramVo}> resp = new ${info.respVo}<${info.paramVo}>();
-        ${info.serviceName}.add(${info.tableInfo.tableName});
+        resp = ${info.serviceName}.add(${info.tableInfo.tableName});
         resp.${info.genericFiledSeter}(${info.tableInfo.tableName});
         return resp;
     }

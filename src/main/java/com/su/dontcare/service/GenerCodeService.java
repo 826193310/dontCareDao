@@ -164,7 +164,7 @@ public class GenerCodeService {
         String tableName = codeInfo.getDtoName();
         String className = tableName + "Service";
         serviceVo.setMapperClass(tableName + "Mapper");
-        serviceVo.setMapperName(tableName + "Mapper");
+        serviceVo.setMapperName(StringUtil.toLowerCaseFirstOne(tableName) + "Mapper");
         String classFileName = className + ".java";
         String respClass = serviceVo.getRespClass();
         String respPageClass = serviceVo.getPageRespClass();
@@ -210,7 +210,7 @@ public class GenerCodeService {
         String tableName = codeInfo.getDtoName();
         String className = tableName + "Controller";
         controllerVo.setServiceClass(tableName + "Service");
-        controllerVo.setServiceName(tableName + "Service");
+        controllerVo.setServiceName(StringUtil.toLowerCaseFirstOne(tableName) + "Service");
         String classFileName = className + ".java";
         String respClass = controllerVo.getRespClass();
         String respPageClass = controllerVo.getPageRespClass();
