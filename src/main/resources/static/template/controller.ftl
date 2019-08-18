@@ -43,7 +43,6 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
             <#else>
             return ${info.serviceName}.selectList(${info.pathName});
         </#if>
-
     }
     <#if (info.enablePageHelper)>
 
