@@ -44,7 +44,6 @@ public class GeneratorCodeInfo {
     private PageVoAttr pageVoAttr; // 分页属性类
     private String serviceExtendClass; // // service 继承类，带全包名的类， 如 com.su.dontcare.service.BaseService
     private String mapperExtendClass; // // mapper 继承类，带全包名的类， 如 com.su.dontcare.mapper.BaseMapper
-
     public String getOutputPath() {
         return outputPath;
     }

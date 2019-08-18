@@ -37,8 +37,6 @@ public class GeneratorCodeUtil {
         if (codeInfo.getDtoExtendClass() != null) {
             String extendClass = codeInfo.getDtoExtendClass();
             list.add(extendClass);
-            // 设置Dto 继承的类名
-            //codeInfo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
         }
         return list;
     }
@@ -78,7 +76,7 @@ public class GeneratorCodeUtil {
         // 查询列表所需
         list.add("java.util.List");
         // DTO 包所在
-        list.add(codeInfo.getDtoPath() + "." + StringUtil.firstCharUpper(codeInfo.getTableInfo().getTableName()));
+        list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
         list.add(getPrimaryImportClass(codeInfo.getTableInfo().getFields()));
         if(codeInfo.getMapperExtendClass() != null && codeInfo.getMapperExtendClass().trim() != "") {
             list.add(codeInfo.getMapperExtendClass());
@@ -104,8 +102,7 @@ public class GeneratorCodeUtil {
         list.add("org.springframework.beans.factory.annotation.Autowired");
         list.add(codeInfo.getRespClass());
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
-        String tableName = codeInfo.getTableInfo().getTableName();
-        list.add(codeInfo.getMapperPath() + "." + StringUtil.firstCharUpper(tableName)  + "Mapper");
+        list.add(codeInfo.getMapperPath() + "." + codeInfo.getDtoName()  + "Mapper");
         if (codeInfo.isEnablePageHelper()) {
             list.add("com.github.pagehelper.PageHelper");
             list.add("com.github.pagehelper.PageInfo");
@@ -135,7 +132,7 @@ public class GeneratorCodeUtil {
         if (!codeInfo.isPageRespGeneric()) { // 不是泛型，需要引进 PageInfo
             list.add("com.github.pagehelper.PageInfo");
         }
-        list.add(codeInfo.getServicePath() + "." + StringUtil.firstCharUpper(codeInfo.getTableInfo().getTableName()) + "Service");
+        list.add(codeInfo.getServicePath() + "." + codeInfo.getDtoName() + "Service");
         list.add(codeInfo.getRespClass());
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
         if (codeInfo.isEnablePageHelper()) {

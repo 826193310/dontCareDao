@@ -67,7 +67,9 @@ public class GeneratorService {
         codeInfo.setDtoImportClass(generatorCodeUtil.getImportClass(codeInfo));
         TableInfo tableInfo = codeInfo.getTableInfo();
         codeInfo.setPrimaryKeyType(generatorCodeUtil.getPrimaryType(tableInfo.getFields()));
-        codeInfo.setDtoName(StringUtil.firstCharUpper(tableInfo.getTableName()));
+        if (codeInfo.getDtoName() == null || codeInfo.getDtoName().trim().equals("")) { // 没有自定义Dto名称
+            codeInfo.setDtoName(StringUtil.firstCharUpper(tableInfo.getTableName()));
+        }
         codeInfo.setMapperImportClass(generatorCodeUtil.getMapperImportClass(codeInfo));
 
     }

@@ -71,8 +71,8 @@ public class GenerCodeService {
         Map<String, Object> dataMap = new HashMap<>();
 
         String tableName = codeInfo.getTableInfo().getTableName();
-        codeVo.setInsertDtoParamType(codeInfo.getDtoPath() + "." + StringUtil.firstCharUpper(tableName));
-        String mapperName = StringUtil.firstCharUpper(tableName) + "Mapper";
+        codeVo.setInsertDtoParamType(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
+        String mapperName = codeInfo.getDtoName() + "Mapper";
         codeVo.setMapperNameSpace((codeInfo.getMapperPath() + "." + mapperName));
         codeVo.setFieldsNotContainId(fieldUtil.getFieldsExCludPrimary(codeVo.getTableInfo().getFields()));
         dataMap.put("info", codeVo);
@@ -94,8 +94,7 @@ public class GenerCodeService {
         MapperJavaVo codeVo = new MapperJavaVo();
         BeanUtils.copyProperties(codeInfo, codeVo);
         Map<String, Object> dataMap = new HashMap<>();
-        String tableName = codeInfo.getTableInfo().getTableName();
-        String mapperName = StringUtil.firstCharUpper(tableName) + "Mapper";
+        String mapperName = codeInfo.getDtoName() + "Mapper";
         codeVo.setPackName(codeInfo.getMapperPath());
         codeVo.setClassName(mapperName);
         FieldUtil.convertTypeToJavaByFieldList(codeVo.getTableInfo());
@@ -127,8 +126,7 @@ public class GenerCodeService {
         DtoVo dtoVo = new DtoVo();
         BeanUtils.copyProperties(codeInfo, dtoVo);
         Map<String, Object> dataMap = new HashMap<>();
-        String tableName = codeInfo.getTableInfo().getTableName();
-        String className = StringUtil.firstCharUpper(tableName);
+        String className = codeInfo.getDtoName();
         if (codeInfo.getDtoExtendClass() != null) {
             String extendClass = codeInfo.getDtoExtendClass();
             // 设置Dto 继承的类名
@@ -163,9 +161,9 @@ public class GenerCodeService {
         ServiceVo serviceVo = new ServiceVo();
         BeanUtils.copyProperties(codeInfo, serviceVo);
         Map<String, Object> dataMap = new HashMap<>();
-        String tableName = codeInfo.getTableInfo().getTableName();
-        String className = StringUtil.firstCharUpper(tableName) + "Service";
-        serviceVo.setMapperClass(StringUtil.firstCharUpper(tableName) + "Mapper");
+        String tableName = codeInfo.getDtoName();
+        String className = tableName + "Service";
+        serviceVo.setMapperClass(tableName + "Mapper");
         serviceVo.setMapperName(tableName + "Mapper");
         String classFileName = className + ".java";
         String respClass = serviceVo.getRespClass();
@@ -209,10 +207,9 @@ public class GenerCodeService {
         ControllerVo controllerVo = new ControllerVo();
         BeanUtils.copyProperties(codeInfo, controllerVo);
         Map<String, Object> dataMap = new HashMap<>();
-        //String dtoName = codeInfo.getDtoName();
-        String tableName = codeInfo.getTableInfo().getTableName();
-        String className = StringUtil.firstCharUpper(tableName) + "Controller";
-        controllerVo.setServiceClass(StringUtil.firstCharUpper(tableName) + "Service");
+        String tableName = codeInfo.getDtoName();
+        String className = tableName + "Controller";
+        controllerVo.setServiceClass(tableName + "Service");
         controllerVo.setServiceName(tableName + "Service");
         String classFileName = className + ".java";
         String respClass = controllerVo.getRespClass();
@@ -228,7 +225,7 @@ public class GenerCodeService {
         controllerVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(controllerVo.getGenericFiled()));
         List<String> classes = generatorCodeUtil.getControllerImportClass(controllerVo);
         controllerVo.setControllerImportClass(classes);
-        if (codeInfo.getDtoExtendClass() != null) {
+        if (codeInfo.getDtoExtendClass() != null) {// 是否存在继承
             String extendClass = codeInfo.getControllerExtendClass();
             // 设置Dto 继承的类名
             controllerVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
