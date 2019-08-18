@@ -225,10 +225,15 @@ public class GenerCodeService {
         controllerVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(controllerVo.getGenericFiled()));
         List<String> classes = generatorCodeUtil.getControllerImportClass(controllerVo);
         controllerVo.setControllerImportClass(classes);
-        if (codeInfo.getDtoExtendClass() != null) {// 是否存在继承
+        if (codeInfo.getControllerExtendClass() != null) {// 是否存在继承
             String extendClass = codeInfo.getControllerExtendClass();
             // 设置Dto 继承的类名
             controllerVo.setExtendsClassName(extendClass.substring(extendClass.lastIndexOf(".") + 1, extendClass.length()));
+        }
+        if (codeInfo.getDtoName() != null && !codeInfo.getDtoName().trim().equals("")) {
+            controllerVo.setPathName(StringUtil.toLowerCaseFirstOne(codeInfo.getDtoName()));
+        } else {
+            controllerVo.setPathName(codeInfo.getTableInfo().getTableName());
         }
         dataMap.put("info", controllerVo);
 

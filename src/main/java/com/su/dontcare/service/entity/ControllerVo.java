@@ -21,6 +21,7 @@ public class ControllerVo extends GeneratorCodeInfo {
     private String genericFiledGeter; // 泛型字段getter方法
     private String genericFiledSeter; // 泛型字段setter方法
     private List<String> controllerImportClass; // service 层引进的class
+    private String pathName; // 请求前缀名称
 
     public String getPackName() {
         return packName;
@@ -108,5 +109,13 @@ public class ControllerVo extends GeneratorCodeInfo {
 
     public void setControllerImportClass(List<String> controllerImportClass) {
         this.controllerImportClass = controllerImportClass;
+    }
+
+    public String getPathName() {
+        return pathName;
+    }
+
+    public void setPathName(String pathName) {
+        this.pathName = pathName;
     }
 }

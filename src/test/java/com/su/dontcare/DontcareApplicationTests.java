@@ -39,7 +39,7 @@ public class DontcareApplicationTests {
 		codeInfo.setMapperPath("com.su.dontcare.dao"); // mapper 接口包地
 		codeInfo.setMapperXmlPath("com.su.dontcare.dao.Mapper"); // 生成 Mapper.xml 到该包下
 		codeInfo.setDtoPath("com.su.dontcare.dto"); // 生成 Dto 到该包下
-		codeInfo.setDtoName("User"); // dtoName. 设置这个的话， Mapper, Mapper.xml, Service, Dto, Controller 均按照此命名生成，
+		codeInfo.setDtoName(""); // dtoName. 设置这个的话， Mapper, Mapper.xml, Service, Dto, Controller 均按照此命名生成，
 									  // 否则按照表名首字符大写形式生成. 如果设多个，以逗号分隔即可。 如User,FasfdfsSaveInfo
 		codeInfo.setDtoExtendClass("com.su.dontcare.service.entity.BaseResp"); // dto 继承类
 		//codeInfo.setDtoExtendsClassFields("cUser, cTime, uUser, uDate"); // dto 继承类所含字段
