@@ -4,20 +4,20 @@
 <mapper namespace="${info.mapperNameSpace}">
 
     <sql id="baseColumns">
-        <#list info.tableInfo.fields as field>${field.name}<#if (info.tableInfo.fields?size == field_index + 1)><#else>, </#if></#list>
+        <#list info.tableInfo.fields as field>${field.sourceName}<#if (info.tableInfo.fields?size == field_index + 1)><#else>, </#if></#list>
     </sql>
 
     <sql id="equalFiled">
         <where>
             <#list info.tableInfo.fields as field>
-                <if test="${field.name} != null"> AND ${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
+                <if test="${field.name} != null"> AND ${field.sourceName} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse></if>
             </#list>
         </where>
     </sql>
 
     <insert id="insert" parameterType="${info.insertDtoParamType}">
         INSERT INTO ${info.tableInfo.tableName} (
-            <#list info.fieldsNotContainId as field>${field.name}<#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
+            <#list info.fieldsNotContainId as field>${field.sourceName}<#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
         ) VALUES (
             <#list info.fieldsNotContainId as field><#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse><#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
         )
@@ -27,7 +27,7 @@
         INSERT INTO ${info.tableInfo.tableName}
         <trim prefix="(" suffix=")" suffixOverrides="," >
         <#list info.fieldsNotContainId as field>
-            <if test="${field.name} != null">${field.name},</if>
+            <if test="${field.name} != null">${field.sourceName},</if>
         </#list>
         </trim>
          VALUES
@@ -67,7 +67,7 @@
         UPDATE ${info.tableInfo.tableName}
         <set>
         <#list info.fieldsNotContainId as field>
-            <if test="${field.name} != null">${field.name} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if>
+            <if test="${field.name} != null">${field.sourceName} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if>
         </#list>
         </set>
         WHERE ${info.tableInfo.primaryKey} = <#noparse>#{</#noparse>${info.tableInfo.primaryKey}<#noparse>}</#noparse>

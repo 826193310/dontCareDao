@@ -27,7 +27,9 @@ public enum MysqlFieldToJavaEnum {
     VARBINARY("VARBINARY", "Byte[]"),
     LONGVARBINARY("LONGVARBINARY", "Byte[]"),
     TIME("TIME", "Time"),
-    TIMESTAMP("TIMESTAMP", "java.sql.Timestamp");
+    TIMESTAMP("TIMESTAMP", "java.sql.Timestamp"),
+    INT_IDENTITY("int identity", "Integer"),
+    SMALLDATETIME("smalldatetime", "Date");
     private String mysqlType;
     private String javaType;
     MysqlFieldToJavaEnum(String mysqlType, String javaType) {

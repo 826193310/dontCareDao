@@ -11,10 +11,12 @@ package com.su.dontcare.service.entity;
 **/
 public class FieldInfo {
     private String name; // 字段名称
+    private String sourceName; // 字段源名称
+
     private String type; // 字段类型
     private boolean isNull; // 是否允许为空
     private boolean primaryKey; // 是否为ID
-    private String commons; // 字段备注
+    private String commons = ""; // 字段备注
     private String javaType; // java 字段类型
 
     public String getName() {
@@ -63,5 +65,13 @@ public class FieldInfo {
 
     public void setJavaType(String javaType) {
         this.javaType = javaType;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

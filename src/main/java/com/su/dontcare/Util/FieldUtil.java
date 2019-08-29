@@ -21,13 +21,20 @@ import java.util.List;
 public class FieldUtil {
 
     public static String convetTypeToJava(String driverClass, String mysqlType) {
-        if (driverClass.equals(DataBaseTypeEnum.MYSQL.getDriverClass())) {
+        /*if (driverClass.equals(DataBaseTypeEnum.MYSQL.getDriverClass())) {*/
             try {
                 return MysqlFieldToJavaEnum.toJavaType(mysqlType);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        /*}
+        if (driverClass.equals(DataBaseTypeEnum.SQLSERVER.getDriverClass())) {
+            try {
+                return MysqlFieldToJavaEnum.toJavaType(mysqlType);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }*/
         return null;
     }
 

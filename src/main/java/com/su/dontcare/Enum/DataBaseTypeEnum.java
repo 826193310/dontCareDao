@@ -7,7 +7,8 @@ package com.su.dontcare.Enum;
 *@Date: 2019/8/10
 **/
 public enum DataBaseTypeEnum {
-    MYSQL("MYSQL","com.mysql.jdbc.Driver",  "SELECT * FROM TABLE LIMIT 1");
+    MYSQL("MYSQL","com.mysql.jdbc.Driver",  "SELECT * FROM TABLE LIMIT 1"),
+    SQLSERVER("SQLSERVER","com.microsoft.sqlserver.jdbc.SQLServerDriver",  "SELECT TOP 1 * FROM TABLE");
 
     private String dataBaseName;
     private String driverClass;

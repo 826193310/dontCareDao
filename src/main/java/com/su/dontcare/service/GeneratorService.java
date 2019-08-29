@@ -179,18 +179,21 @@ public class GeneratorService {
                 FieldInfo fieldInfo = new FieldInfo();
                 //列名
                 String columnName = rs.getString("COLUMN_NAME");
+                fieldInfo.setSourceName(columnName);
                 String typeName = rs.getString("TYPE_NAME");
                 String remarks = rs.getString("REMARKS");
-                fieldInfo.setName(columnName);
+                // 移除下划线，以及首字母小写
+                String name = StringUtil.toLowerCaseFirstOne(StringUtil.removeUnderline(columnName));
+                fieldInfo.setName(name);
                 fieldInfo.setType(typeName);
-                fieldInfo.setCommons(remarks);
-                if (primaryKey != null && primaryKey.equals(columnName)) {
+                fieldInfo.setCommons(remarks == null ? "" : remarks);
+                if (primaryKey != null && primaryKey.equalsIgnoreCase(columnName)) {
                     fieldInfo.setPrimaryKey(true);
                 }
                 fields.add(fieldInfo);
             }
-
-            info.setTableName(getTableName(tableName));
+            String table = getTableName(tableName);
+            info.setTableName((table == null || table.trim().equals("")) ? tableName : table);
             info.setDriverClass(ymlPropertiesConst.driverClass);
             info.setFields(fields);
             return info;
