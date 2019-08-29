@@ -29,7 +29,8 @@ public enum MysqlFieldToJavaEnum {
     TIME("TIME", "Time"),
     TIMESTAMP("TIMESTAMP", "java.sql.Timestamp"),
     INT_IDENTITY("int identity", "Integer"),
-    SMALLDATETIME("smalldatetime", "Date");
+    SMALLDATETIME("smalldatetime", "Date"),
+    NVARCHAR("nvarchar", "String");
     private String mysqlType;
     private String javaType;
     MysqlFieldToJavaEnum(String mysqlType, String javaType) {
