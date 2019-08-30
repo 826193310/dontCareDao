@@ -26,6 +26,7 @@ public class GeneratorCodeInfo {
     private String projectPath; // 项目路径
     private String primaryKeyType; // 主键类型
     private String dtoName; // dto 对象名称
+    private String dtoValueName; // 生成方法的入参对象
     private String dtoExtendClass; // dto 继承类，带全包名的类， 例如 com.su.BaseDto
     private String dtoExtendsClassFields; // dto 继承类所含字段， 逗号拼接的字符串 例： "name,age,cDate,uDate"
     private String extendsClassName; // 继承类的类名, dto 继承类，controller 继承类， service 继承类
@@ -290,5 +291,13 @@ public class GeneratorCodeInfo {
 
     public void setMapperExtendClass(String mapperExtendClass) {
         this.mapperExtendClass = mapperExtendClass;
+    }
+
+    public String getDtoValueName() {
+        return dtoValueName;
+    }
+
+    public void setDtoValueName(String dtoValueName) {
+        this.dtoValueName = dtoValueName;
     }
 }

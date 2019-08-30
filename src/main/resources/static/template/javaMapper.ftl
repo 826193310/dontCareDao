@@ -6,14 +6,14 @@ import ${importClass};
 
 public interface ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 
-    int insert(${info.dtoName} ${info.tableInfo.tableName});
+    int insert(${info.dtoName} ${info.dtoValueName});
 
     /**
     *
     * 动态插入处理
     *
     **/
-    int insertDynamic(${info.dtoName} ${info.tableInfo.tableName});
+    int insertDynamic(${info.dtoName} ${info.dtoValueName});
 
     <#if info.primaryKeyType?exists>
     /**
@@ -38,21 +38,21 @@ public interface ${info.className} <#if info.extendsClassName?exists>extends ${i
     * 根据 dto 获取列表数据
     *
     **/
-    List<${info.dtoName}> selectListByDto(${info.dtoName} ${info.tableInfo.tableName});
+    List<${info.dtoName}> selectListByDto(${info.dtoName} ${info.dtoValueName});
 
     /**
     *
     * 根据 dto 获取单条记录
     *
     **/
-    ${info.dtoName} selectOneByDto(${info.dtoName} ${info.tableInfo.tableName});
+    ${info.dtoName} selectOneByDto(${info.dtoName} ${info.dtoValueName});
 
     /**
     *
     * 传入对象，统计匹配的数据条数（适用于增加时判断数据是否有重复）
     *
     **/
-    int countData(${info.dtoName} ${info.tableInfo.tableName});
+    int countData(${info.dtoName} ${info.dtoValueName});
 
     <#if info.primaryKeyType?exists>
     /**
@@ -60,7 +60,7 @@ public interface ${info.className} <#if info.extendsClassName?exists>extends ${i
     * 根据主键 ID 更新数据
     *
     **/
-    int updateByPrimary(${info.dtoName} ${info.tableInfo.tableName});
+    int updateByPrimary(${info.dtoName} ${info.dtoValueName});
 
     </#if>
 }
