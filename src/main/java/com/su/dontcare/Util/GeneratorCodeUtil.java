@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class GeneratorCodeUtil {
             String extendClass = codeInfo.getDtoExtendClass();
             list.add(extendClass);
         }
+        list = new ArrayList<String>(new HashSet<String>(list));
         return list;
     }
 
@@ -77,7 +79,10 @@ public class GeneratorCodeUtil {
         list.add("java.util.List");
         // DTO 包所在
         list.add(codeInfo.getDtoPath() + "." + codeInfo.getDtoName());
-        list.add(getPrimaryImportClass(codeInfo.getTableInfo().getFields()));
+
+        if (codeInfo.getTableInfo().getPrimaryKey() != null) {
+            list.add(getPrimaryImportClass(codeInfo.getTableInfo().getFields()));
+        }
         if(codeInfo.getMapperExtendClass() != null && codeInfo.getMapperExtendClass().trim() != "") {
             list.add(codeInfo.getMapperExtendClass());
         }

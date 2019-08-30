@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="${info.mapperNameSpace}">
+    <resultMap id="${info.dtoValueName}Map" type="${info.insertDtoParamType}">
+        <#list info.tableInfo.fields as field>
+        <result property="${field.name}" column="${field.sourceName}" />
+        </#list>
+    </resultMap>
 
     <sql id="baseColumns">
         <#list info.tableInfo.fields as field>${field.sourceName}<#if (info.tableInfo.fields?size == field_index + 1)><#else>, </#if></#list>
@@ -45,16 +50,16 @@
 
     </#if>
     <#if info.tableInfo.primaryKey?exists >
-    <select id="selectByPrimary" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}" >
+    <select id="selectByPrimary" resultMap="${info.dtoValueName}Map" parameterType="${info.insertDtoParamType}" >
         SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName} WHERE ${info.tableInfo.primaryKey} = <#noparse>#{id}</#noparse>
     </select>
 
     </#if>
-    <select id="selectListByDto" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}">
+    <select id="selectListByDto" resultMap="${info.dtoValueName}Map" parameterType="${info.insertDtoParamType}">
         SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName} <include refid="equalFiled" />
     </select>
 
-    <select id="selectOneByDto" resultType="${info.insertDtoParamType}" parameterType="${info.insertDtoParamType}">
+    <select id="selectOneByDto" resultMap="${info.dtoValueName}Map" parameterType="${info.insertDtoParamType}">
         SELECT <include refid="baseColumns" /> FROM ${info.tableInfo.tableName} <include refid="equalFiled" />
     </select>
 

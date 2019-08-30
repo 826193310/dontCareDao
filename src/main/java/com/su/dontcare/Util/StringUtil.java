@@ -18,6 +18,7 @@ public class StringUtil {
      *
      **/
     public static String firstCharUpper(String str) {
+        if (str == null || str.trim().equals("")) return str;
         char[] cs=str.toCharArray();
         if (Character.isUpperCase(cs[0])) return String.valueOf(cs);
 
