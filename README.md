@@ -29,8 +29,20 @@ dontCareDao 是一个使用 [freemarker](https://freemarker.apache.org/) 处理�
 * 批量插入（小数据量）
 
 <span id="use"><h1> 使用</h1></span>
- 目前 非正式版本仅支持在 DontcareApplicationTests 这个 test 类下进行生成, 主要通过核心配置类 GeneratorCodeInfo 生成
- 列出该类相关参数的说明
+    目前 非正式版本仅支持在 DontcareApplicationTests 这个 test 类下进行生成, 主要通过核心配置类 GeneratorCodeInfo 生成
+列出该类相关参数的说明， 后续可能通过配置文件来配置生成的信息
+    
+前提：application.yml 配置好数据库信息
+    
+参考示例：
+    如果仅需要生成 Mapper 层面， 参考 DontcareApplicationTests的 generatorMapper 方法
+    如果仅需要生成 Mapper,Service 层面， 参考 DontcareApplicationTests的 generatorMapperAndService 方法
+    如果仅需要生成 Mapper,Service,  层面， 参考 DontcareApplicationTests的 generatorAll 方法
+
+运行方式：
+    以 junit Test 方式运行相关方法即可
+    
+   
 ### 生成 dao 层
 * TableInfo tableInfo:表信息类， 设置表信息类的属性 tableName 为你需要生成的表 
 * String outputPath: 生成文件跟目录，一般spring boot 项目配置到项目的 src/main/java路径下，参考 DontcareApplicationTests 类的 testGenerator 方法中的配置 
