@@ -36,7 +36,7 @@ public class GeneratorCodeInfo {
     private boolean generatorSwagger; // 是否生成swagger 接口
 
     private String respClass; // controller 和 service 层返回处理, 包的全路径
-    private boolean respGeneric; // 返回类是否为泛型
+    private boolean respGeneric = false; // 返回类是否为泛型
     private String genericFiled; // resp 类型的泛型字段
 
     private boolean enablePageHelper; // 是否在 controller 和 service 生成分页

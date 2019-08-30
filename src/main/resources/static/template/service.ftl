@@ -11,10 +11,10 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
     private ${info.mapperClass} ${info.mapperName};
 
     @Transactional
-    public ${info.respVo}<${info.listSearchVo}> add(${info.listSearchVo} ${info.tableInfo.tableName}) {
-        ${info.mapperName}.insertDynamic(${info.tableInfo.tableName});
+    public ${info.respVo}<${info.listSearchVo}> add(${info.listSearchVo} ${info.dtoValueName}) {
+        ${info.mapperName}.insertDynamic(${info.dtoValueName});
         ${info.respVo}<${info.listSearchVo}> resp = new ${info.respVo}<${info.listSearchVo}>();
-        resp.${info.genericFiledSeter}(${info.tableInfo.tableName});
+        resp.${info.genericFiledSeter}(${info.dtoValueName});
         return resp;
     }
     <#if info.tableInfo.primaryKey?exists>
@@ -27,15 +27,15 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
     }
 
     @Transactional
-    public ${info.respVo}<Void> updateByPrimary(${info.listSearchVo} ${info.tableInfo.tableName}) {
+    public ${info.respVo}<Void> updateByPrimary(${info.listSearchVo} ${info.dtoValueName}) {
         ${info.respVo}<Void> resp = new ${info.respVo}<Void>();
-        ${info.mapperName}.updateByPrimary(${info.tableInfo.tableName});
+        ${info.mapperName}.updateByPrimary(${info.dtoValueName});
         return resp;
     }
     </#if>
 
-    public <#if (info.respGeneric)>${info.respVo}<List<${info.listSearchVo}>><#else>List<${info.listSearchVo}></#if> selectList(${info.listSearchVo} ${info.tableInfo.tableName}) {
-        List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.tableInfo.tableName});
+    public <#if (info.respGeneric)>${info.respVo}<List<${info.listSearchVo}>><#else>List<${info.listSearchVo}></#if> selectList(${info.listSearchVo} ${info.dtoValueName}) {
+        List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.dtoValueName});
         <#if (info.respGeneric)>
         ${info.respVo}<List<${info.listSearchVo}>> resp = new ${info.respVo}<List<${info.listSearchVo}>>();
         resp.${info.genericFiledSeter}(list);
@@ -47,9 +47,9 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
     }
     <#if (info.enablePageHelper)>
 
-    public <#if (info.pageRespGeneric)>${info.pageRespVo}<${info.listSearchVo}><#else>PageInfo<${info.listSearchVo}></#if> selectPageList(${info.listSearchVo} ${info.tableInfo.tableName}, int currentPage, int pageSize) {
+    public <#if (info.pageRespGeneric)>${info.pageRespVo}<${info.listSearchVo}><#else>PageInfo<${info.listSearchVo}></#if> selectPageList(${info.listSearchVo} ${info.dtoValueName}, int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-        List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.tableInfo.tableName});
+        List<${info.listSearchVo}> list = ${info.mapperName}.selectListByDto(${info.dtoValueName});
         PageInfo<${info.listSearchVo}> page = new PageInfo<${info.listSearchVo}>(list);
         <#if (info.pageRespGeneric)>
         ${info.pageRespVo}<${info.listSearchVo}> pageResp = new ${info.pageRespVo}<${info.listSearchVo}>();

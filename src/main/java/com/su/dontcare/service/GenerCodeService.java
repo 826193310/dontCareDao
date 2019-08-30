@@ -176,7 +176,9 @@ public class GenerCodeService {
         serviceVo.setPackName(codeInfo.getServicePath());
         serviceVo.setClassName(className);
         serviceVo.setListSearchVo(codeInfo.getDtoName());
-        serviceVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(serviceVo.getGenericFiled()));
+        if (serviceVo.isRespGeneric()) { // 返回类是泛型才需要设置该值
+            serviceVo.setGenericFiledSeter("set" + StringUtil.firstCharUpper(serviceVo.getGenericFiled()));
+        }
         List<String> classes = generatorCodeUtil.getServiceImportClass(serviceVo);
         serviceVo.setServiceImportClass(classes);
         if (codeInfo.getDtoExtendClass() != null) {
