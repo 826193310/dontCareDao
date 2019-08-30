@@ -34,7 +34,7 @@ public class DontcareApplicationTests {
 	public void testGenerator() {
 		GeneratorCodeInfo codeInfo = new GeneratorCodeInfo();
 		TableInfo tableInfo = new TableInfo();/*,tblAccessUser*/
-		codeInfo.setOutputPath("E:/job/华龙微信/网关开发存档/20190829智能盯盘处理/weixin-app-server/src");
+		codeInfo.setOutputPath("E:/job/test/网关开发存档/test/weixin-app-server/src");
 		tableInfo.setTableName("TBL_ACCOUNT_TEMPLATE_ALERT, TBL_SMS_SERVICE");// 要生成的表， 多表批量生成用逗号分隔， 如：tbluser,tblfasfdfssaveinfo,stu
 		codeInfo.setMapperPath("com.kds2.mapper"); // mapper 接口包地
 		codeInfo.setMapperXmlPath("com.kds2.mapper"); // 生成 Mapper.xml 到该包下
@@ -82,7 +82,7 @@ public class DontcareApplicationTests {
 		TableInfo tableInfo = new TableInfo();
 
 		// JAVA 文件 src 地址
-		codeInfo.setOutputPath("E:/job/华龙微信/网关开发存档/20190829智能盯盘处理/weixin-app-server/src");
+		codeInfo.setOutputPath("E:/job/test/网关开发存档/test/weixin-app-server/src");
 		// 要生成的表， 多表批量生成用逗号分隔， 如：tbluser,tblfasfdfssaveinfo,stu
 		tableInfo.setTableName("tbl_log_UPDATEINFO_COL_BATCH");
 		codeInfo.setMapperPath("com.kds2.mapper");
@@ -122,7 +122,7 @@ public class DontcareApplicationTests {
 
 		// Mapper配置
 		// JAVA 文件 src 地址
-		codeInfo.setOutputPath("E:/job/华龙微信/网关开发存档/20190829智能盯盘处理/weixin-app-server/src");
+		codeInfo.setOutputPath("E:/job/test/网关开发存档/test/weixin-app-server/src");
 		// 要生成的表， 多表批量生成用逗号分隔， 如：tbluser,tblfasfdfssaveinfo,stu
 		tableInfo.setTableName("tbl_log_UPDATEINFO_COL_BATCH,TBL_ACCOUNT_TEMPLATE_CHECK_INFO");
 		codeInfo.setMapperPath("com.kds2.mapper");
@@ -187,7 +187,7 @@ public class DontcareApplicationTests {
 
 		// Mapper配置
 		// JAVA 文件 src 地址
-		codeInfo.setOutputPath("E:/job/华龙微信/网关开发存档/20190829智能盯盘处理/weixin-app-server/src");
+		codeInfo.setOutputPath("E:/job/test/网关开发存档/test/weixin-app-server/src");
 		// 要生成的表， 多表批量生成用逗号分隔， 如：tbluser,tblfasfdfssaveinfo,stu
 		tableInfo.setTableName("tbl_log_UPDATEINFO_COL_BATCH,TBL_ACCOUNT_TEMPLATE_CHECK_INFO");
 		codeInfo.setMapperPath("com.kds2.mapper");
