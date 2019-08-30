@@ -71,16 +71,6 @@ public class GeneratorService {
             codeService.generCode(temp);
             System.out.println("表" + s + "的相关映射生成成功");
         }
-       /* for (String s : arrayList) {
-            GeneratorCodeInfo temp = new GeneratorCodeInfo();
-            BeanUtils.copyProperties(codeInfo, temp);
-            System.out.println("即将生成表" + s + "的相关映射");
-            TableInfo tableInfo = getTabelInfo(s.trim());
-            temp.setTableInfo(tableInfo);
-            setAttribute(temp);
-            codeService.generCode(temp);
-            System.out.println("表" + s + "的相关映射生成成功");
-        }*/
         System.out.println("==========代码生成成功==============");
     }
 
@@ -185,7 +175,11 @@ public class GeneratorService {
                 String typeName = rs.getString("TYPE_NAME");
                 String remarks = rs.getString("REMARKS");
                 // 移除下划线，以及首字母小写
-                String name = StringUtil.toLowerCaseFirstOne(StringUtil.removeUnderline(columnName));
+                String name = StringUtil.removeUnderline(columnName);
+                // 如果全大写，所有均转换小写
+                name = StringUtil.toLowerCaseWhenAllUpper(name);
+                // 首字母转换小写
+                name = StringUtil.toLowerCaseFirstOne(name);
                 fieldInfo.setName(name);
                 fieldInfo.setType(typeName);
                 fieldInfo.setCommons(remarks == null ? "" : remarks);

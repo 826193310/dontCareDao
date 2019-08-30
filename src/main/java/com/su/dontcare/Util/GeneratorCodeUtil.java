@@ -40,6 +40,8 @@ public class GeneratorCodeUtil {
             list.add(extendClass);
         }
         list = new ArrayList<String>(new HashSet<String>(list));
+
+        new ArrayList<String>(new HashSet<String>(list));
         return list;
     }
 
