@@ -5,6 +5,9 @@ import ${importClass};
 </#list>
 
 @RestController
+<#if info.controllerPrefix?exists>
+@RequestMapping("${info.controllerPrefix}")
+</#if>
 public class ${info.className} <#if info.extendsClassName?exists>extends ${info.extendsClassName}</#if>{
 
     @Autowired
