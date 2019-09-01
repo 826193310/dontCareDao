@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public enum TypeClassEnum {
     STRING("String","java.lang.String"),
     INTEGER("Integer","java.lang.Integer"),
-    DATE("Date", "java.sql.Date"),
+    DATE("Date", "java.util.Date"),
     LONG("Long", "java.lang.Long"),
     BigDecimal("BigDecimal", "java.math.BigDecimal"),
     Float("Float", "java.lang.Float"),
