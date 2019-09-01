@@ -259,7 +259,7 @@ public class GeneratorCodeInfo {
     }
 
     public void setDtoExtendsClassFields(String dtoExtendsClassFields) {
-        this.dtoExtendsClassFields = dtoExtendsClassFields;
+        this.dtoExtendsClassFields = dtoExtendsClassFields; //dtoExtendsClassFields.trim().replace(" ", "");
     }
 
     public String getExtendsClassName() {
