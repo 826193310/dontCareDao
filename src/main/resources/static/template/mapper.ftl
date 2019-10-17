@@ -49,7 +49,16 @@
     </delete>
 
     </#if>
+    <delete id="deleteByDtoCondition" parameterType="${info.insertDtoParamType}">
+        DELETE FROM ${info.tableInfo.tableName} WHERE
+        <trim prefix="" suffix="" suffixOverrides="AND" >
+            <#list info.tableInfo.fields as field>
+            <if test="${field.name} != null">  ${field.sourceName} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse> AND</if>
+            </#list>
+        </trim>
+    </delete>
     <#if info.tableInfo.primaryKey?exists >
+
     <select id="selectByPrimary" resultMap="${info.dtoValueName}Map" parameterType="${info.insertDtoParamType}" >
         SELECT <include refid="baseColumns" />  FROM ${info.tableInfo.tableName} WHERE ${info.tableInfo.primaryKey} = <#noparse>#{id}</#noparse>
     </select>

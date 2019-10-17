@@ -24,6 +24,13 @@ public interface ${info.className} <#if info.extendsClassName?exists>extends ${i
     int deleteByPrimary(${info.primaryKeyType} id);
 
     </#if>
+    /**
+    *
+    * 根据 dto 条件批量删除
+    *
+    **/
+    int deleteByDtoCondition(${info.dtoName} ${info.dtoValueName});
+
     <#if info.primaryKeyType?exists>
     /**
     *
