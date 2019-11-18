@@ -20,7 +20,7 @@
         </where>
     </sql>
 
-    <insert id="insert" parameterType="${info.insertDtoParamType}">
+    <insert id="insert" parameterType="${info.insertDtoParamType}" <#if info.tableInfo.primaryKey?exists >useGeneratedKeys="true" keyProperty="${info.tableInfo.primaryKey}"</#if>>
         INSERT INTO ${info.tableInfo.tableName} (
             <#list info.fieldsNotContainId as field>${field.sourceName}<#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
         ) VALUES (
@@ -28,7 +28,7 @@
         )
     </insert>
 
-    <insert id="insertDynamic" parameterType="${info.insertDtoParamType}">
+    <insert id="insertDynamic" parameterType="${info.insertDtoParamType}" <#if info.tableInfo.primaryKey?exists >useGeneratedKeys="true" keyProperty="${info.tableInfo.primaryKey}"</#if>>
         INSERT INTO ${info.tableInfo.tableName}
         <trim prefix="(" suffix=")" suffixOverrides="," >
         <#list info.fieldsNotContainId as field>
