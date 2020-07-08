@@ -185,6 +185,7 @@ public class GeneratorService {
                 fieldInfo.setCommons(remarks == null ? "" : remarks);
                 if (primaryKey != null && primaryKey.equalsIgnoreCase(columnName)) {
                     fieldInfo.setPrimaryKey(true);
+                    info.setDtoprimaryKey(name);
                 }
                 fields.add(fieldInfo);
             }

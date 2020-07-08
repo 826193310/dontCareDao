@@ -20,6 +20,7 @@
         </where>
     </sql>
 
+
     <insert id="insert" parameterType="${info.insertDtoParamType}" <#if info.tableInfo.primaryKey?exists >useGeneratedKeys="true" keyProperty="${info.tableInfo.primaryKey}"</#if>>
         INSERT INTO ${info.tableInfo.tableName} (
             <#list info.fieldsNotContainId as field>${field.sourceName}<#if (info.fieldsNotContainId?size == field_index + 1)><#else>, </#if></#list>
@@ -84,7 +85,7 @@
             <if test="${field.name} != null">${field.sourceName} = <#noparse>#{</#noparse>${field.name}<#noparse>}</#noparse>,</if>
         </#list>
         </set>
-        WHERE ${info.tableInfo.primaryKey} = <#noparse>#{</#noparse>${info.tableInfo.primaryKey}<#noparse>}</#noparse>
+        WHERE ${info.tableInfo.primaryKey} = <#noparse>#{</#noparse>${info.tableInfo.dtoprimaryKey}<#noparse>}</#noparse>
     </update>
     </#if>
 </mapper>

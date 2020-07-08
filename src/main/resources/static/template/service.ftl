@@ -12,8 +12,8 @@ public class ${info.className} <#if info.extendsClassName?exists>extends ${info.
 
     @Transactional
     public ${info.respVo}<${info.listSearchVo}> add(${info.listSearchVo} ${info.dtoValueName}) {
-        ${info.mapperName}.insertDynamic(${info.dtoValueName});
         ${info.respVo}<${info.listSearchVo}> resp = new ${info.respVo}<${info.listSearchVo}>();
+        ${info.mapperName}.insertDynamic(${info.dtoValueName});
         resp.${info.genericFiledSeter}(${info.dtoValueName});
         return resp;
     }

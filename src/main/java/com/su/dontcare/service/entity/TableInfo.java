@@ -17,6 +17,7 @@ public class TableInfo {
     List<FieldInfo> fields; // 字段信息
     private String driverClass; // 数据库驱动类，用以标识数据库类型转JAVA时不同数据之前的处理
     private String primaryKey; //主键ID
+    private String dtoprimaryKey; // dto 主键key
 
     public String getTableName() {
         return tableName;
@@ -56,5 +57,13 @@ public class TableInfo {
 
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public String getDtoprimaryKey() {
+        return dtoprimaryKey;
+    }
+
+    public void setDtoprimaryKey(String dtoprimaryKey) {
+        this.dtoprimaryKey = dtoprimaryKey;
     }
 }
